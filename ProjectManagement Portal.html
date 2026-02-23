@@ -1,0 +1,1830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Union Bank Nigeria — IT Project Management Portal</title>
+<style>
+/* ═══════════════════════════════════════════════════════
+   UNION BANK NIGERIA — IT PROJECT PORTAL
+   Brand: Deep Navy #0B1C39 | Union Red #C8102E | Gold #C9A84C
+   ═══════════════════════════════════════════════════════ */
+@import url('data:text/css,/* no external fonts - using system stack */');
+
+:root {
+  /* Union Bank Nigeria brand */
+  --ub-navy:   #0B1C39;
+  --ub-navy2:  #102040;
+  --ub-navy3:  #163059;
+  --ub-navy4:  #1e3d6e;
+  --ub-red:    #C8102E;
+  --ub-red2:   #a50d25;
+  --ub-redd:   rgba(200,16,46,.13);
+  --ub-gold:   #C9A84C;
+  --ub-goldd:  rgba(201,168,76,.12);
+  --ub-white:  #F5F7FA;
+  /* Status */
+  --ok:   #16a34a;
+  --warn: #d97706;
+  --err:  #dc2626;
+  --info: #2563eb;
+  --teal: #0d9488;
+  --purp: #7c3aed;
+  /* Text */
+  --txt:  #1a2940;
+  --txt2: #4a5568;
+  --txt3: #718096;
+  /* UI */
+  --bdr:  #d1dce8;
+  --bg:   #eef2f7;
+  --card: #ffffff;
+  /* Layout */
+  --sw:   240px;
+  --th:   64px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--txt); overflow: hidden; font-size: 14px; }
+
+/* ═══ SECURITY BANNER ═══ */
+.sec-banner {
+  background: var(--ub-navy);
+  color: rgba(255,255,255,.7);
+  font-size: 11px;
+  text-align: center;
+  padding: 4px 0;
+  letter-spacing: .3px;
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 9999;
+}
+.sec-banner strong { color: var(--ub-gold); }
+
+/* ═══ LOGIN SCREEN ═══ */
+#loginScreen {
+  position: fixed; inset: 0;
+  background: var(--ub-navy);
+  display: flex;
+  z-index: 999;
+  overflow: hidden;
+}
+.login-left {
+  width: 55%;
+  background: linear-gradient(145deg, var(--ub-navy) 0%, var(--ub-navy3) 60%, var(--ub-navy4) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px;
+  position: relative;
+  overflow: hidden;
+}
+.login-geo {
+  position: absolute;
+  border-radius: 50%;
+  opacity: .05;
+}
+.login-geo.g1 { width:600px;height:600px;background:var(--ub-red);top:-200px;left:-200px; }
+.login-geo.g2 { width:400px;height:400px;background:var(--ub-gold);bottom:-150px;right:-100px; }
+.login-geo.g3 { width:200px;height:200px;background:#fff;top:50%;left:30%; }
+.login-logo { display: flex; align-items: center; gap: 16px; margin-bottom: 60px; position: relative; z-index: 1; }
+.login-logo-badge {
+  width: 56px; height: 56px;
+  background: var(--ub-red);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; font-weight: 900; color: #fff;
+  letter-spacing: -1px;
+  box-shadow: 0 4px 20px rgba(200,16,46,.4);
+}
+.login-logo-text { color: #fff; }
+.login-logo-text .bank { font-size: 22px; font-weight: 800; letter-spacing: -.3px; }
+.login-logo-text .tagline { font-size: 11px; color: rgba(255,255,255,.5); letter-spacing: 1px; text-transform: uppercase; }
+.login-headline { color: #fff; position: relative; z-index: 1; }
+.login-headline h1 { font-size: 38px; font-weight: 900; letter-spacing: -1px; line-height: 1.15; margin-bottom: 14px; }
+.login-headline h1 span { color: var(--ub-gold); }
+.login-headline p { font-size: 14px; color: rgba(255,255,255,.6); line-height: 1.6; max-width: 380px; }
+.login-features { margin-top: 48px; display: flex; flex-direction: column; gap: 14px; position: relative; z-index: 1; }
+.lf-item { display: flex; align-items: center; gap: 12px; color: rgba(255,255,255,.75); font-size: 13px; }
+.lf-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ub-gold); flex-shrink: 0; }
+.login-right {
+  width: 45%;
+  background: var(--ub-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+.login-form-wrap { width: 100%; max-width: 380px; }
+.lf-title { font-size: 26px; font-weight: 800; color: var(--ub-navy); margin-bottom: 6px; letter-spacing: -.5px; }
+.lf-sub { font-size: 13px; color: var(--txt2); margin-bottom: 36px; }
+.lf-sec-notice {
+  background: #fef3c7; border: 1px solid #f59e0b;
+  border-radius: 8px; padding: 10px 14px; font-size: 12px;
+  color: #92400e; margin-bottom: 24px; display: flex; gap: 8px; align-items: flex-start;
+}
+.lfg { margin-bottom: 18px; }
+.lfg label { display: block; font-size: 11.5px; font-weight: 700; color: var(--txt); margin-bottom: 6px; text-transform: uppercase; letter-spacing: .5px; }
+.lf-input {
+  width: 100%; padding: 12px 14px;
+  background: #fff; border: 2px solid var(--bdr);
+  border-radius: 10px; font-size: 14px; color: var(--txt);
+  outline: none; transition: border-color .2s;
+  font-family: inherit;
+}
+.lf-input:focus { border-color: var(--ub-red); }
+.lf-select-wrap { position: relative; }
+.lf-select-wrap::after { content: '▾'; position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: var(--txt2); pointer-events: none; }
+select.lf-input { appearance: none; cursor: pointer; }
+.lf-btn {
+  width: 100%; padding: 13px;
+  background: var(--ub-red);
+  color: #fff; border: none; border-radius: 10px;
+  font-size: 15px; font-weight: 700; cursor: pointer;
+  letter-spacing: .3px; margin-top: 8px;
+  transition: all .2s;
+  box-shadow: 0 4px 14px rgba(200,16,46,.35);
+}
+.lf-btn:hover { background: var(--ub-red2); transform: translateY(-1px); box-shadow: 0 6px 18px rgba(200,16,46,.4); }
+.lf-footer { margin-top: 28px; text-align: center; font-size: 12px; color: var(--txt3); }
+.lf-footer strong { color: var(--ub-red); }
+
+/* MFA Screen */
+.mfa-wrap { width: 100%; max-width: 380px; text-align: center; }
+.mfa-icon { font-size: 48px; margin-bottom: 16px; }
+.mfa-title { font-size: 22px; font-weight: 800; color: var(--ub-navy); margin-bottom: 8px; }
+.mfa-sub { font-size: 13px; color: var(--txt2); margin-bottom: 28px; line-height: 1.5; }
+.mfa-inputs { display: flex; gap: 10px; justify-content: center; margin-bottom: 24px; }
+.mfa-digit {
+  width: 52px; height: 60px;
+  border: 2px solid var(--bdr);
+  border-radius: 10px; font-size: 24px; font-weight: 700;
+  text-align: center; outline: none; font-family: monospace;
+  color: var(--ub-navy);
+  transition: border-color .2s;
+}
+.mfa-digit:focus { border-color: var(--ub-red); }
+.mfa-resend { font-size: 12px; color: var(--txt2); }
+.mfa-resend a { color: var(--ub-red); cursor: pointer; font-weight: 600; }
+
+/* ═══ APP SHELL ═══ */
+#appShell { display: none; height: 100vh; padding-top: 23px; }
+#appShell.visible { display: flex; flex-direction: column; }
+
+/* ═══ SIDEBAR ═══ */
+.sb {
+  position: fixed; top: 23px; left: 0;
+  width: var(--sw); height: calc(100vh - 23px);
+  background: var(--ub-navy);
+  display: flex; flex-direction: column;
+  z-index: 100;
+  box-shadow: 4px 0 20px rgba(0,0,0,.15);
+}
+.sb-logo {
+  padding: 0 18px; height: var(--th);
+  display: flex; align-items: center; gap: 11px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  flex-shrink: 0;
+}
+.sb-logo-ic {
+  width: 36px; height: 36px; background: var(--ub-red);
+  border-radius: 8px; display: flex; align-items: center;
+  justify-content: center; font-size: 14px; font-weight: 900; color: #fff; flex-shrink: 0;
+}
+.sb-logo-tx { color: #fff; }
+.sb-logo-tx .l1 { font-weight: 800; font-size: 14px; }
+.sb-logo-tx .l2 { font-size: 10px; color: rgba(255,255,255,.45); letter-spacing: .5px; text-transform: uppercase; }
+.sb-nav { flex: 1; padding: 12px 0; overflow-y: auto; }
+.ni {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 18px; color: rgba(255,255,255,.55);
+  font-size: 13px; font-weight: 500; cursor: pointer;
+  border-left: 3px solid transparent;
+  transition: all .15s; user-select: none;
+}
+.ni:hover { background: rgba(255,255,255,.06); color: rgba(255,255,255,.85); }
+.ni.on { background: rgba(200,16,46,.18); color: #fff; border-left-color: var(--ub-red); }
+.ni-ic { font-size: 14px; width: 18px; text-align: center; flex-shrink: 0; }
+.ni-badge { background: var(--ub-red); color: #fff; border-radius: 10px; font-size: 9px; font-weight: 800; padding: 1px 5px; margin-left: auto; }
+.ndiv { height: 1px; background: rgba(255,255,255,.07); margin: 7px 14px; }
+.ni-section { font-size: 9.5px; text-transform: uppercase; letter-spacing: .9px; color: rgba(255,255,255,.28); padding: 10px 18px 4px; font-weight: 700; }
+.sb-user {
+  padding: 14px 18px; border-top: 1px solid rgba(255,255,255,.08); flex-shrink: 0;
+}
+.su-r { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.av {
+  border-radius: 50%; display: flex; align-items: center;
+  justify-content: center; font-weight: 800; color: #fff; flex-shrink: 0;
+  background: var(--ub-red);
+}
+.av.lg { width: 36px; height: 36px; font-size: 13px; }
+.av.md { width: 28px; height: 28px; font-size: 10px; }
+.av.sm { width: 22px; height: 22px; font-size: 8px; }
+.su-name { font-size: 13px; font-weight: 700; color: #fff; }
+.su-role { font-size: 10.5px; color: rgba(255,255,255,.45); }
+.su-logout { width: 100%; background: rgba(200,16,46,.2); border: 1px solid rgba(200,16,46,.3); color: rgba(255,255,255,.7); border-radius: 7px; padding: 6px; font-size: 11.5px; cursor: pointer; font-weight: 600; transition: all .15s; text-align: center; }
+.su-logout:hover { background: var(--ub-red); color: #fff; }
+
+/* ═══ TOPBAR ═══ */
+.topbar {
+  position: fixed; top: 23px; left: var(--sw); right: 0; height: var(--th);
+  background: var(--card); border-bottom: 1px solid var(--bdr);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 24px; z-index: 99;
+  box-shadow: 0 1px 8px rgba(0,0,0,.06);
+}
+.tb-title { font-weight: 800; font-size: 17px; color: var(--ub-navy); letter-spacing: -.3px; }
+.tb-bc { font-size: 11px; color: var(--txt3); }
+.tb-r { display: flex; align-items: center; gap: 10px; }
+.role-chip {
+  background: var(--ub-redd); border: 1px solid rgba(200,16,46,.25);
+  color: var(--ub-red); border-radius: 20px; padding: 4px 13px;
+  font-size: 11.5px; font-weight: 700; letter-spacing: .2px;
+}
+.tb-search {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--bg); border: 1px solid var(--bdr);
+  border-radius: 8px; padding: 7px 13px;
+}
+.tb-search input { background: none; border: none; outline: none; font-size: 13px; color: var(--txt); width: 180px; }
+.tb-search input::placeholder { color: var(--txt3); }
+.tb-btn {
+  background: var(--bg); border: 1px solid var(--bdr);
+  border-radius: 8px; padding: 7px 12px; color: var(--txt2);
+  cursor: pointer; font-size: 13px; position: relative; transition: all .15s;
+}
+.tb-btn:hover { border-color: var(--ub-red); color: var(--ub-red); }
+.tb-btn .badge { background: var(--ub-red); color: #fff; border-radius: 10px; font-size: 9px; font-weight: 800; padding: 1px 5px; margin-left: 3px; }
+.notif-panel {
+  position: fixed; top: calc(23px + 70px); right: 20px;
+  width: 340px; background: var(--card);
+  border: 1px solid var(--bdr); border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,.12); z-index: 200;
+}
+.notif-panel.h { display: none; }
+.np-hd { padding: 12px 16px; font-weight: 700; font-size: 13px; border-bottom: 1px solid var(--bdr); display: flex; justify-content: space-between; color: var(--ub-navy); }
+.np-item { display: flex; gap: 10px; padding: 11px 16px; border-bottom: 1px solid var(--bdr); font-size: 12.5px; cursor: pointer; }
+.np-item:hover { background: var(--bg); }
+.np-item:last-child { border: none; }
+.np-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+
+/* ═══ MAIN CONTENT ═══ */
+.main {
+  margin-left: var(--sw);
+  margin-top: calc(23px + var(--th));
+  height: calc(100vh - 23px - var(--th));
+  overflow: hidden; display: flex; flex-direction: column;
+}
+.sc { display: none; padding: 22px 26px; overflow-y: auto; flex: 1; }
+.sc.on { display: block; }
+
+/* ═══ ROLE BANNER ═══ */
+.role-banner {
+  background: linear-gradient(135deg, var(--ub-navy) 0%, var(--ub-navy3) 100%);
+  border-radius: 12px; padding: 16px 20px; margin-bottom: 18px;
+  display: flex; align-items: center; gap: 14px; color: #fff;
+  border: 1px solid rgba(255,255,255,.1);
+}
+.rb-icon { font-size: 28px; }
+.rb-title { font-weight: 800; font-size: 15px; margin-bottom: 3px; }
+.rb-sub { font-size: 12px; color: rgba(255,255,255,.6); }
+.rb-pills { margin-left: auto; display: flex; gap: 7px; flex-wrap: wrap; justify-content: flex-end; }
+.rb-pill { background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); color: rgba(255,255,255,.8); border-radius: 20px; padding: 3px 10px; font-size: 11px; font-weight: 600; white-space: nowrap; }
+
+/* ═══ KPI CARDS ═══ */
+.kpi-row { display: flex; gap: 13px; margin-bottom: 20px; flex-wrap: wrap; }
+.kpi {
+  flex: 1; min-width: 140px;
+  background: var(--card); border: 1px solid var(--bdr);
+  border-radius: 12px; padding: 16px 18px; cursor: pointer;
+  transition: all .15s; position: relative; overflow: hidden;
+}
+.kpi:hover { box-shadow: 0 4px 16px rgba(0,0,0,.1); transform: translateY(-1px); }
+.kpi::after { content: ''; position: absolute; bottom: 0; left: 0; height: 3px; width: 100%; }
+.kpi.red::after { background: var(--ub-red); }
+.kpi.green::after { background: var(--ok); }
+.kpi.gold::after { background: var(--ub-gold); }
+.kpi.blue::after { background: var(--info); }
+.kpi.warn::after { background: var(--warn); }
+.kpi-lbl { font-size: 11px; font-weight: 700; color: var(--txt3); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 7px; }
+.kpi-val { font-size: 30px; font-weight: 900; color: var(--ub-navy); letter-spacing: -1px; line-height: 1; }
+.kpi-sub { font-size: 11.5px; color: var(--txt3); margin-top: 5px; }
+
+/* ═══ SECTION HEADER ═══ */
+.sec-hdr { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.sec-title { font-weight: 800; font-size: 14.5px; color: var(--ub-navy); display: flex; align-items: center; gap: 8px; }
+.sec-title::before { content: ''; width: 4px; height: 18px; background: var(--ub-red); border-radius: 2px; }
+
+/* ═══ CARDS ═══ */
+.card { background: var(--card); border: 1px solid var(--bdr); border-radius: 12px; padding: 18px 20px; }
+.card-title { font-weight: 700; font-size: 13.5px; color: var(--ub-navy); margin-bottom: 14px; }
+.card-hdr { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+
+/* ═══ GRID LAYOUTS ═══ */
+.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+.g4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 14px; }
+.span2 { grid-column: span 2; }
+.span3 { grid-column: 1/-1; }
+
+/* ═══ BADGES ═══ */
+.badge { display: inline-block; padding: 2px 9px; border-radius: 4px; font-size: 11px; font-weight: 700; white-space: nowrap; }
+.badge.plan { background: #eff6ff; color: #1d4ed8; }
+.badge.dev { background: #faf5ff; color: #6d28d9; }
+.badge.int { background: #f0fdfa; color: #0f766e; }
+.badge.sit { background: #fefce8; color: #92400e; border: 1px solid #fcd34d; }
+.badge.uat { background: #fff7ed; color: #c2410c; }
+.badge.assure { background: #fdf4ff; color: #7e22ce; }
+.badge.pilot { background: #fdf2f8; color: #be185d; }
+.badge.deploy { background: #ecfdf5; color: #065f46; }
+.badge.live { background: #dcfce7; color: #14532d; border: 1px solid #86efac; }
+.badge.blocked { background: #fef2f2; color: #991b1b; border: 1px solid #fca5a5; }
+.badge.multi { background: #f1f5f9; color: #334155; }
+.hd { width: 10px; height: 10px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+.hd.g { background: var(--ok); box-shadow: 0 0 5px rgba(22,163,74,.4); }
+.hd.a { background: var(--warn); box-shadow: 0 0 5px rgba(217,119,6,.4); }
+.hd.r { background: var(--err); box-shadow: 0 0 5px rgba(220,38,38,.4); }
+
+/* ═══ PROGRESS BAR ═══ */
+.prb { height: 5px; background: #e2e8f0; border-radius: 3px; overflow: hidden; }
+.prf { height: 100%; border-radius: 3px; background: var(--ub-red); transition: width .6s ease; }
+.prf.ok { background: var(--ok); }
+.prf.warn { background: var(--warn); }
+.prf.red { background: var(--err); }
+.progress-lg { height: 22px; background: #e2e8f0; border-radius: 11px; overflow: hidden; }
+.progress-lg-fill { height: 100%; border-radius: 11px; background: linear-gradient(90deg, var(--ub-red), #e83254); display: flex; align-items: center; justify-content: flex-end; padding-right: 10px; font-size: 11.5px; font-weight: 700; color: #fff; transition: width .6s; }
+
+/* ═══ TABLE ═══ */
+.tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
+.tbl thead th { text-align: left; padding: 10px 13px; font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; color: var(--txt3); background: var(--bg); border-bottom: 1px solid var(--bdr); white-space: nowrap; }
+.tbl thead th:first-child { border-radius: 8px 0 0 0; }
+.tbl thead th:last-child { border-radius: 0 8px 0 0; }
+.tbl tbody td { padding: 11px 13px; border-bottom: 1px solid #f1f5f9; vertical-align: middle; }
+.tbl tbody tr { cursor: pointer; transition: background .1s; }
+.tbl tbody tr:hover { background: #fafbfd; }
+.tbl tbody tr:last-child td { border: none; }
+.mc { display: flex; align-items: center; gap: 7px; }
+
+/* ═══ PROGRESS BAR INLINE ═══ */
+.pb-sm { display: inline-block; width: 75px; height: 5px; background: #e2e8f0; border-radius: 3px; overflow: hidden; vertical-align: middle; margin-right: 4px; }
+.pb-sm div { height: 100%; background: var(--ub-red); border-radius: 3px; }
+
+/* ═══ TOOLBAR ═══ */
+.tbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; gap: 10px; flex-wrap: wrap; }
+.tbar-l { display: flex; gap: 9px; align-items: center; flex-wrap: wrap; }
+.sel { background: var(--card); border: 1px solid var(--bdr); color: var(--txt); border-radius: 8px; padding: 7px 11px; font-size: 12.5px; cursor: pointer; outline: none; font-family: inherit; }
+.sel:focus { border-color: var(--ub-red); }
+
+/* ═══ BUTTONS ═══ */
+.btn-red { background: var(--ub-red); color: #fff; border: none; border-radius: 8px; padding: 8px 16px; font-size: 12.5px; font-weight: 700; cursor: pointer; transition: all .15s; white-space: nowrap; }
+.btn-red:hover { background: var(--ub-red2); }
+.btn-red.sm { padding: 5px 11px; font-size: 11.5px; }
+.btn-out { background: transparent; border: 1px solid var(--bdr); color: var(--txt2); border-radius: 8px; padding: 7px 14px; font-size: 12.5px; cursor: pointer; transition: all .15s; }
+.btn-out:hover { border-color: var(--ub-red); color: var(--ub-red); }
+.btn-ghost { background: var(--bg); border: 1px solid var(--bdr); color: var(--txt2); padding: 4px 10px; border-radius: 6px; font-size: 11.5px; cursor: pointer; transition: all .12s; }
+.btn-ghost:hover { border-color: var(--ub-red); color: var(--ub-red); }
+
+/* ═══ TABS ═══ */
+.tabs { display: flex; border-bottom: 2px solid var(--bdr); margin-bottom: 18px; gap: 0; }
+.tab-btn { background: none; border: none; color: var(--txt2); padding: 9px 18px; font-size: 13px; font-weight: 600; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: all .15s; white-space: nowrap; font-family: inherit; }
+.tab-btn:hover { color: var(--ub-navy); }
+.tab-btn.on { color: var(--ub-red); border-bottom-color: var(--ub-red); }
+.tab-pane { display: none; }
+.tab-pane.on { display: block; }
+
+/* ═══ PROJECT CARDS ═══ */
+.proj-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px; }
+.pcard {
+  background: var(--card); border: 1px solid var(--bdr);
+  border-radius: 12px; padding: 16px 18px; cursor: pointer;
+  transition: all .15s; position: relative; overflow: hidden;
+}
+.pcard::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--bdr); border-radius: 12px 0 0 12px; }
+.pcard.on-track::before { background: var(--ok); }
+.pcard.at-risk::before { background: var(--warn); }
+.pcard.blocked-c::before { background: var(--err); }
+.pcard.near-live::before { background: var(--ub-red); }
+.pcard:hover { box-shadow: 0 4px 20px rgba(0,0,0,.1); transform: translateY(-1px); }
+.pc-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+.pc-name { font-weight: 700; font-size: 13.5px; color: var(--ub-navy); line-height: 1.3; margin-bottom: 3px; }
+.pc-bu { font-size: 11px; color: var(--ub-red); font-weight: 600; margin-bottom: 8px; }
+.pc-pm { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--txt2); margin-bottom: 10px; }
+.pc-foot { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; font-size: 11.5px; }
+.pc-pct { font-weight: 800; color: var(--ub-navy); font-size: 14px; }
+.pc-date { color: var(--txt3); font-size: 11px; }
+.pc-blocker { font-size: 11px; color: var(--err); background: #fef2f2; padding: 4px 8px; border-radius: 5px; margin-top: 7px; display: flex; align-items: flex-start; gap: 4px; }
+
+/* ═══ STAGE PIPELINE ═══ */
+.stage-pipe { display: flex; align-items: center; gap: 0; overflow-x: auto; padding: 4px 0 12px; margin-bottom: 4px; }
+.sp-node { display: flex; flex-direction: column; align-items: center; gap: 5px; flex-shrink: 0; }
+.sp-circle {
+  width: 38px; height: 38px; border-radius: 50%;
+  border: 2px solid var(--bdr); display: flex; align-items: center;
+  justify-content: center; font-size: 11px; font-weight: 700;
+  color: var(--txt3); background: var(--bg); cursor: pointer;
+  transition: all .2s; position: relative;
+}
+.sp-circle.done { background: #dcfce7; border-color: var(--ok); color: var(--ok); }
+.sp-circle.active { background: var(--ub-redd); border-color: var(--ub-red); color: var(--ub-red); box-shadow: 0 0 0 4px rgba(200,16,46,.1); }
+.sp-circle.locked { opacity: .4; cursor: default; }
+.sp-lbl { font-size: 9.5px; color: var(--txt3); text-align: center; max-width: 65px; line-height: 1.3; white-space: nowrap; }
+.sp-lbl.active { color: var(--ub-red); font-weight: 700; }
+.sp-arr { color: var(--bdr); font-size: 16px; margin: 0 3px; margin-bottom: 20px; flex-shrink: 0; }
+.sp-badge { position: absolute; top: -3px; right: -3px; width: 14px; height: 14px; border-radius: 50%; font-size: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+.sp-badge.ok { background: var(--ok); color: #fff; }
+.sp-badge.err { background: var(--err); color: #fff; }
+
+/* ═══ GATE DOCS ═══ */
+.gate-docs { background: var(--bg); border: 1px solid var(--bdr); border-radius: 10px; padding: 16px; margin-top: 14px; }
+.gd-title { font-weight: 700; font-size: 13px; color: var(--ub-navy); margin-bottom: 12px; display: flex; align-items: center; gap: 7px; }
+.gd-item { display: flex; align-items: center; gap: 10px; font-size: 13px; padding: 8px 0; border-bottom: 1px solid var(--bdr); }
+.gd-item:last-child { border: none; }
+.gd-chk { width: 20px; height: 20px; border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
+.gd-chk.done { background: #dcfce7; color: var(--ok); border: 1px solid #86efac; }
+.gd-chk.miss { background: #fef2f2; color: var(--err); border: 1px solid #fca5a5; }
+.gd-chk.na { background: var(--bg); color: var(--txt3); border: 1px solid var(--bdr); }
+.gd-name { flex: 1; }
+.gd-upload-link { font-size: 11.5px; color: var(--ub-red); cursor: pointer; font-weight: 600; text-decoration: underline; }
+
+/* ═══ TASKS / SLA ═══ */
+.task-card {
+  background: var(--card); border: 1px solid var(--bdr);
+  border-radius: 10px; padding: 13px 15px; margin-bottom: 9px; cursor: pointer;
+  transition: all .15s; position: relative;
+}
+.task-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,.08); }
+.task-card.over { border-left: 4px solid var(--err); }
+.task-card.sla-w { border-left: 4px solid var(--warn); }
+.task-card.ok2 { border-left: 4px solid var(--ok); }
+.tc-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
+.tc-name { font-weight: 700; font-size: 13.5px; color: var(--ub-navy); }
+.tc-proj { font-size: 12px; color: var(--ub-red); font-weight: 500; margin-bottom: 6px; }
+.tc-meta { display: flex; gap: 12px; font-size: 12px; color: var(--txt2); flex-wrap: wrap; }
+.sla-track { margin-top: 9px; }
+.sla-bar { height: 5px; background: #e2e8f0; border-radius: 3px; overflow: hidden; margin-bottom: 3px; }
+.sla-fill { height: 100%; border-radius: 3px; transition: width .3s; }
+.sla-ok { background: var(--ok); }
+.sla-warn { background: var(--warn); }
+.sla-err { background: var(--err); }
+.sla-labels { display: flex; justify-content: space-between; font-size: 10.5px; color: var(--txt3); }
+
+/* ═══ AZURE PIPELINE ═══ */
+.pipe-card { background: var(--card); border: 1px solid var(--bdr); border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; }
+.pipe-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.pipe-name { font-weight: 700; font-size: 13.5px; color: var(--ub-navy); }
+.pipe-meta { font-size: 11.5px; color: var(--txt2); margin-top: 2px; }
+.pipe-commit { font-family: 'Consolas', 'Courier New', monospace; font-size: 11px; background: var(--bg); color: var(--ub-navy); border: 1px solid var(--bdr); padding: 2px 7px; border-radius: 4px; }
+.pipe-stages { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
+.ps { padding: 4px 11px; border-radius: 4px; font-size: 11.5px; font-weight: 600; display: flex; align-items: center; gap: 5px; }
+.ps.done { background: #dcfce7; color: var(--ok); }
+.ps.run { background: #fefce8; color: var(--warn); animation: blink 1.8s infinite; }
+.ps.fail { background: #fef2f2; color: var(--err); }
+.ps.wait { background: var(--bg); color: var(--txt3); }
+.ps-arr { color: var(--bdr); }
+@keyframes blink { 0%,100%{opacity:1}50%{opacity:.55} }
+.pipe-status { font-size: 12px; margin-top: 8px; padding: 7px 11px; border-radius: 6px; }
+.pipe-status.fail { background: #fef2f2; color: var(--err); }
+.pipe-status.run { background: #fefce8; color: #92400e; }
+.pipe-status.ok { background: #dcfce7; color: var(--ok); }
+
+/* ═══ DOCUMENT UPLOAD ═══ */
+.drop-zone {
+  border: 2px dashed var(--bdr); border-radius: 10px;
+  padding: 28px; text-align: center; cursor: pointer;
+  transition: all .15s; margin-bottom: 16px; background: var(--bg);
+}
+.drop-zone:hover { border-color: var(--ub-red); background: #fff5f5; }
+.dz-icon { font-size: 32px; margin-bottom: 8px; }
+.dz-title { font-weight: 700; font-size: 14px; color: var(--ub-navy); margin-bottom: 4px; }
+.dz-sub { font-size: 12px; color: var(--txt3); }
+.doc-row { display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: var(--card); border: 1px solid var(--bdr); border-radius: 9px; margin-bottom: 8px; font-size: 13px; }
+.doc-row.missing { border-color: #fca5a5; background: #fef2f2; }
+.doc-icon { font-size: 22px; flex-shrink: 0; }
+.doc-inf { flex: 1; }
+.doc-nm { font-weight: 600; color: var(--ub-navy); }
+.doc-mt { font-size: 11.5px; color: var(--txt3); }
+.doc-st { font-size: 11.5px; font-weight: 600; padding: 3px 8px; border-radius: 4px; flex-shrink: 0; }
+.doc-st.ok { background: #dcfce7; color: var(--ok); }
+.doc-st.miss { background: #fef2f2; color: var(--err); }
+.doc-st.rev { background: #fefce8; color: var(--warn); }
+
+/* ═══ PLAN TABLE ═══ */
+.plan-tbl { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.plan-tbl thead th { background: var(--ub-navy); color: rgba(255,255,255,.8); padding: 9px 12px; text-align: left; font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; white-space: nowrap; }
+.plan-tbl thead th:first-child { border-radius: 8px 0 0 0; }
+.plan-tbl thead th:last-child { border-radius: 0 8px 0 0; }
+.plan-tbl tbody td { padding: 9px 12px; border-bottom: 1px solid #f1f5f9; vertical-align: middle; white-space: nowrap; }
+.plan-tbl tbody tr:hover { background: #fafbfd; }
+.plan-tbl tbody tr.behind { background: #fffbeb; }
+.plan-tbl tbody tr.blocked-r { background: #fef2f2; }
+.var-behind { font-weight: 700; color: var(--err); }
+.var-ok { font-weight: 700; color: var(--ok); }
+.var-warn { font-weight: 700; color: var(--warn); }
+
+/* ═══ WEEKLY UPDATE ═══ */
+.email-preview {
+  background: var(--card); border: 1px solid var(--bdr);
+  border-radius: 12px; overflow: hidden;
+}
+.ep-hdr {
+  background: var(--ub-navy); padding: 20px 24px;
+  display: flex; align-items: center; gap: 14px;
+}
+.ep-hdr-logo { font-size: 13px; font-weight: 900; background: var(--ub-red); color: #fff; padding: 6px 10px; border-radius: 6px; }
+.ep-hdr-txt { color: #fff; }
+.ep-hdr-title { font-size: 17px; font-weight: 800; }
+.ep-hdr-sub { font-size: 11.5px; color: rgba(255,255,255,.55); margin-top: 2px; }
+.ep-body { padding: 20px 24px; }
+.ep-sec { margin-bottom: 18px; }
+.ep-sec-title { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .7px; color: var(--ub-red); margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--bdr); }
+.ep-row { display: flex; gap: 12px; padding: 7px 0; border-bottom: 1px solid #f1f5f9; font-size: 12.5px; }
+.ep-row:last-child { border: none; }
+.ep-lbl { width: 150px; flex-shrink: 0; font-weight: 600; color: var(--txt); }
+.ep-val { flex: 1; color: var(--txt2); }
+.ep-blocker-row { background: #fef2f2; border: 1px solid #fca5a5; border-radius: 7px; padding: 9px 12px; margin-bottom: 7px; font-size: 12.5px; }
+.ep-blocker-lbl { font-weight: 700; color: var(--err); font-size: 11.5px; text-transform: uppercase; margin-bottom: 3px; }
+
+/* ═══ MODALS ═══ */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,.55);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 800; backdrop-filter: blur(4px);
+}
+.modal-overlay.h { display: none; }
+.modal {
+  background: var(--card); border-radius: 14px;
+  width: 560px; max-width: 94vw; max-height: 90vh; overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0,0,0,.25);
+  animation: mslide .2s ease;
+}
+.modal.wide { width: 720px; }
+@keyframes mslide { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+.mhd { display: flex; justify-content: space-between; align-items: center; padding: 18px 22px; border-bottom: 1px solid var(--bdr); }
+.mhd h3 { font-size: 16px; font-weight: 800; color: var(--ub-navy); }
+.mhd-close { background: none; border: none; font-size: 18px; color: var(--txt3); cursor: pointer; padding: 4px 8px; border-radius: 6px; }
+.mhd-close:hover { background: var(--bg); }
+.mbody { padding: 20px 22px; }
+.mfooter { display: flex; justify-content: flex-end; gap: 9px; padding: 14px 22px; border-top: 1px solid var(--bdr); }
+.fg { display: flex; flex-direction: column; gap: 5px; margin-bottom: 15px; }
+.fg label { font-size: 11.5px; font-weight: 700; color: var(--txt); text-transform: uppercase; letter-spacing: .4px; }
+.fi { width: 100%; padding: 9px 13px; background: var(--bg); border: 2px solid var(--bdr); border-radius: 8px; font-size: 13.5px; color: var(--txt); outline: none; font-family: inherit; transition: border-color .2s; }
+.fi:focus { border-color: var(--ub-red); background: #fff; }
+textarea.fi { resize: vertical; }
+.f2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.f3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+
+/* ═══ TOAST ═══ */
+.toast {
+  position: fixed; bottom: 24px; right: 24px;
+  background: var(--ub-navy); color: #fff;
+  padding: 12px 20px; border-radius: 10px;
+  font-size: 13.5px; font-weight: 600; z-index: 9999;
+  box-shadow: 0 6px 24px rgba(0,0,0,.25);
+  animation: mslide .2s ease; display: flex; gap: 10px; align-items: center;
+  border-left: 4px solid var(--ub-red);
+}
+.toast.h { display: none; }
+.toast.ok { border-left-color: var(--ok); }
+.toast.err { border-left-color: var(--err); }
+.toast.warn { border-left-color: var(--warn); }
+
+/* ═══ ACTIVITY FEED ═══ */
+.act-feed { display: flex; flex-direction: column; gap: 10px; }
+.act-item { display: flex; gap: 10px; font-size: 12.5px; }
+.act-dot { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; }
+.act-dot.ok { background: #dcfce7; color: var(--ok); }
+.act-dot.err { background: #fef2f2; color: var(--err); }
+.act-dot.warn { background: #fefce8; color: var(--warn); }
+.act-dot.info { background: #eff6ff; color: var(--info); }
+.act-dot.red { background: var(--ub-redd); color: var(--ub-red); }
+.act-txt strong { color: var(--ub-navy); }
+.act-txt small { display: block; color: var(--txt3); font-size: 11px; margin-top: 1px; }
+
+/* ═══ BLOCKER CARD ═══ */
+.blocker-card { border-radius: 9px; padding: 11px 13px; margin-bottom: 8px; font-size: 12.5px; }
+.blocker-card.crit { background: #fef2f2; border: 1px solid #fca5a5; }
+.blocker-card.warn { background: #fffbeb; border: 1px solid #fde68a; }
+.bc-proj { font-weight: 800; font-size: 12.5px; margin-bottom: 3px; }
+.bc-txt { color: var(--txt2); line-height: 1.5; }
+.bc-proj.r { color: var(--err); }
+.bc-proj.w { color: var(--warn); }
+
+/* ═══ INFO ROWS ═══ */
+.info-rows { display: flex; flex-direction: column; gap: 0; }
+.ir { display: flex; justify-content: space-between; font-size: 13px; padding: 9px 0; border-bottom: 1px solid #f1f5f9; }
+.ir:last-child { border: none; }
+.ir-lbl { color: var(--txt3); font-weight: 500; }
+
+/* ═══ SECURITY PANEL ═══ */
+.sec-panel {
+  background: linear-gradient(135deg, #1a1a2e 0%, #0B1C39 100%);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 12px; padding: 18px 20px; color: rgba(255,255,255,.85);
+}
+.sec-hd { color: var(--ub-gold); font-weight: 800; font-size: 13.5px; margin-bottom: 14px; display: flex; align-items: center; gap: 7px; }
+.sec-row { display: flex; justify-content: space-between; font-size: 12.5px; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,.07); }
+.sec-row:last-child { border: none; }
+.sec-val { font-weight: 600; }
+.sec-val.ok { color: #4ade80; }
+.sec-val.warn { color: #fbbf24; }
+.sec-val.err { color: #f87171; }
+
+/* ═══ SCROLLBAR ═══ */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--bdr); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--txt3); }
+.h { display: none !important; }
+
+/* ═══ PHASE PROGRESS ═══ */
+.phase-row { display: flex; align-items: center; gap: 10px; font-size: 12.5px; margin-bottom: 9px; }
+.ph-lbl { width: 100px; color: var(--txt3); flex-shrink: 0; }
+.ph-bar { flex: 1; height: 7px; background: #e2e8f0; border-radius: 4px; overflow: hidden; }
+.ph-fill { height: 100%; border-radius: 4px; background: var(--ub-red); }
+.ph-fill.ok { background: var(--ok); }
+.ph-pct { width: 35px; text-align: right; font-weight: 700; font-size: 11.5px; }
+
+/* ═══ STAKEHOLDER TABLE ═══ */
+.recip-pill { background: var(--ub-redd); border: 1px solid rgba(200,16,46,.25); color: var(--ub-red); border-radius: 20px; padding: 3px 10px; font-size: 11.5px; font-weight: 600; display: inline-flex; align-items: center; gap: 5px; margin: 3px; }
+
+/* ═══ EMPTY STATE ═══ */
+.empty-state { text-align: center; padding: 48px 20px; color: var(--txt3); }
+.empty-state .es-icon { font-size: 40px; margin-bottom: 12px; }
+.empty-state .es-title { font-size: 15px; font-weight: 700; color: var(--txt2); margin-bottom: 6px; }
+</style>
+</head>
+<body>
+
+<!-- SECURITY BANNER -->
+<div class="sec-banner">
+  🔒 <strong>INTERNAL USE ONLY</strong> — Union Bank Nigeria Secure Intranet · Unauthorized access is prohibited · All activity is monitored and logged · TLS 1.3 Encrypted
+</div>
+
+<!-- ═══════════════════════════════════════
+     LOGIN SCREEN
+═══════════════════════════════════════ -->
+<div id="loginScreen">
+  <div class="login-left">
+    <div class="login-geo g1"></div>
+    <div class="login-geo g2"></div>
+    <div class="login-geo g3"></div>
+    <div class="login-logo">
+      <div class="login-logo-badge">UB</div>
+      <div class="login-logo-text">
+        <div class="bank">Union Bank Nigeria</div>
+        <div class="tagline">Plc — Est. 1917</div>
+      </div>
+    </div>
+    <div class="login-headline">
+      <h1>IT Project<br>Management <span>Portal</span></h1>
+      <p>Centralized oversight of all technology initiatives, deployment pipelines, and delivery milestones across Union Bank Nigeria.</p>
+    </div>
+    <div class="login-features">
+      <div class="lf-item"><div class="lf-dot"></div><span>Real-time project tracking across 8 business units</span></div>
+      <div class="lf-item"><div class="lf-dot"></div><span>Stage gate enforcement with document compliance</span></div>
+      <div class="lf-item"><div class="lf-dot"></div><span>Azure DevOps pipeline integration</span></div>
+      <div class="lf-item"><div class="lf-dot"></div><span>Automated weekly stakeholder reports</span></div>
+      <div class="lf-item"><div class="lf-dot"></div><span>Role-based access — PM, QA, Developer, Director</span></div>
+    </div>
+  </div>
+
+  <!-- LOGIN FORM -->
+  <div class="login-right" id="loginFormArea">
+    <div class="login-form-wrap">
+      <div class="lf-title">Secure Sign-in</div>
+      <div class="lf-sub">Use your Union Bank domain credentials</div>
+      <div class="lf-sec-notice">🔐 This system processes sensitive project information. All sessions are encrypted and audited. You must be on the UB internal network or VPN.</div>
+      <div class="lfg">
+        <label>Staff ID / Email</label>
+        <input class="lf-input" id="loginUser" placeholder="e.g. rita.ejim@unionbankng.com" value="rita.ejim@unionbankng.com"/>
+      </div>
+      <div class="lfg">
+        <label>Password</label>
+        <input class="lf-input" type="password" id="loginPass" placeholder="••••••••" value="password123"/>
+      </div>
+      <div class="lfg">
+        <label>Sign in as</label>
+        <div class="lf-select-wrap">
+          <select class="lf-input" id="loginRole">
+            <option value="pm">Project Manager (Rita Ejim)</option>
+            <option value="pm2">Project Manager (Elohor Useh)</option>
+            <option value="pm3">Project Manager (Mohammed Salami)</option>
+            <option value="qa">QA Engineer</option>
+            <option value="head">IT Director / Project Head</option>
+            <option value="dev">Developer / DevOps</option>
+            <option value="stake">Stakeholder / Business Owner</option>
+          </select>
+        </div>
+      </div>
+      <button class="lf-btn" onclick="doLogin()">Sign In Securely →</button>
+      <div class="lf-footer">
+        <strong>Trouble signing in?</strong> Contact IT Helpdesk ext. 0800 or<br>
+        helpdesk@unionbankng.com · Powered by Azure AD SSO
+      </div>
+    </div>
+  </div>
+
+  <!-- MFA SCREEN -->
+  <div class="login-right h" id="mfaArea">
+    <div class="mfa-wrap">
+      <div class="mfa-icon">🔐</div>
+      <div class="mfa-title">Two-Factor Authentication</div>
+      <div class="mfa-sub">A 6-digit OTP has been sent to your registered mobile number ending in <strong>•••• 7842</strong>. Valid for 5 minutes.</div>
+      <div class="mfa-inputs">
+        <input class="mfa-digit" maxlength="1" id="d1" oninput="mfaNext(this,'d2')"/>
+        <input class="mfa-digit" maxlength="1" id="d2" oninput="mfaNext(this,'d3')"/>
+        <input class="mfa-digit" maxlength="1" id="d3" oninput="mfaNext(this,'d4')"/>
+        <input class="mfa-digit" maxlength="1" id="d4" oninput="mfaNext(this,'d5')"/>
+        <input class="mfa-digit" maxlength="1" id="d5" oninput="mfaNext(this,'d6')"/>
+        <input class="mfa-digit" maxlength="1" id="d6" oninput="mfaVerify()"/>
+      </div>
+      <button class="lf-btn" id="mfaVerifyBtn" onclick="mfaVerifyManual()">Verify & Sign In</button>
+      <div class="mfa-resend" style="margin-top:16px">Didn't receive it? <a onclick="toast('OTP resent to ••••7842','ok')">Resend OTP</a> · <a onclick="showLogin()">← Back</a></div>
+      <div style="margin-top:16px;font-size:11px;color:#999;text-align:center">For demo, enter any 6 digits</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     APP SHELL
+═══════════════════════════════════════ -->
+<div id="appShell">
+
+  <!-- SIDEBAR -->
+  <aside class="sb" id="sidebar">
+    <div class="sb-logo">
+      <div class="sb-logo-ic">UB</div>
+      <div class="sb-logo-tx">
+        <div class="l1">Union Bank</div>
+        <div class="l2">IT Project Portal</div>
+      </div>
+    </div>
+    <nav class="sb-nav" id="sideNav"><!-- Dynamic --></nav>
+    <div class="sb-user">
+      <div class="su-r">
+        <div class="av lg" id="sbAv">RE</div>
+        <div><div class="su-name" id="sbName">Rita Ejim</div><div class="su-role" id="sbRole">Project Manager</div></div>
+      </div>
+      <button class="su-logout" onclick="doLogout()">🚪 Sign Out</button>
+    </div>
+  </aside>
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div>
+      <div class="tb-title" id="pgTitle">Dashboard</div>
+      <div class="tb-bc" id="pgCrumb">Home</div>
+    </div>
+    <div class="tb-r">
+      <div class="tb-search"><span style="color:var(--txt3)">⌕</span><input type="text" placeholder="Search projects, tasks…" id="globalSearch" oninput="searchProjects()"/></div>
+      <button class="tb-btn" onclick="toggleNotif()">🔔<span class="badge">4</span></button>
+      <div class="role-chip" id="roleChip">PM View</div>
+      <button class="btn-red" onclick="om('newProjModal')">+ New Project</button>
+    </div>
+  </header>
+
+  <!-- NOTIFICATION PANEL -->
+  <div class="notif-panel h" id="notifPanel">
+    <div class="np-hd">Notifications <span style="font-size:11px;color:var(--txt3);font-weight:400">4 unread</span></div>
+    <div class="np-item"><span class="np-dot" style="background:var(--err)"></span><div><strong>BLOCKED:</strong> Digital Lending — Weblogic port 7002 down<br><small style="color:var(--txt3)">Rita Ejim · 1 hour ago</small></div></div>
+    <div class="np-item"><span class="np-dot" style="background:var(--warn)"></span><div><strong>SLA Warning:</strong> Account Maintenance UAT overdue 3 days<br><small style="color:var(--txt3)">Mohammed Salami · 2 hrs ago</small></div></div>
+    <div class="np-item"><span class="np-dot" style="background:var(--ub-gold)"></span><div><strong>Gate Ready:</strong> Paygilant Cards — all docs uploaded, CCB pending<br><small style="color:var(--txt3)">Praise Itodo · Yesterday</small></div></div>
+    <div class="np-item"><span class="np-dot" style="background:var(--ok)"></span><div><strong>Weekly Report Due:</strong> Submit by 5 PM today<br><small style="color:var(--txt3)">System · Today</small></div></div>
+  </div>
+
+  <!-- MAIN -->
+  <main class="main" id="mainArea"><!-- Screens injected here --></main>
+</div>
+
+<!-- ═══ MODALS ═══ -->
+
+<!-- NEW PROJECT -->
+<div class="modal-overlay h" id="newProjModal" onclick="cmo(event,'newProjModal')">
+  <div class="modal"><div class="mhd"><h3>Create New Project</h3><button class="mhd-close" onclick="cm('newProjModal')">✕</button></div>
+  <div class="mbody">
+    <div class="fg"><label>Project Name *</label><input class="fi" placeholder="e.g. Digital Lending with Indicina"/></div>
+    <div class="f2"><div class="fg"><label>Business Unit *</label><select class="fi"><option>Retail</option><option>DFS</option><option>Human Resources</option><option>CPC</option><option>Technology</option><option>Corporate Banking</option><option>Control/Fraud Team</option><option>Wholesale Digital Banking</option><option>Ecosystem, Partnerships & Innovation</option></select></div><div class="fg"><label>Project Manager *</label><select class="fi"><option>Rita Ejim</option><option>Elohor Useh</option><option>Samuel Akinde</option><option>Emmanuel Ajao</option><option>Mohammed Salami</option><option>Oluwaferanmi Oketope</option><option>Marvellous Oyekola</option><option>Praise Itodo</option></select></div></div>
+    <div class="f2"><div class="fg"><label>Initial Stage</label><select class="fi"><option>Planning</option><option>Development</option><option>Integration</option><option>SIT</option><option>UAT</option><option>Assurance</option><option>Pilot</option><option>Deployment</option></select></div><div class="fg"><label>Target Go-Live *</label><input class="fi" type="date"/></div></div>
+    <div class="fg"><label>Description / Scope</label><textarea class="fi" rows="2" placeholder="Brief project scope…"></textarea></div>
+    <div class="fg"><label>Azure DevOps Repository</label><input class="fi" placeholder="ub/project-name (e.g. ub/digital-lending)"/></div>
+    <div class="fg"><label>Sponsor / Business Owner</label><input class="fi" placeholder="Name and department"/></div>
+  </div>
+  <div class="mfooter"><button class="btn-out" onclick="cm('newProjModal')">Cancel</button><button class="btn-red" onclick="toast('Project created! Stage gate docs required. ✓','ok');cm('newProjModal')">Create Project</button></div>
+  </div>
+</div>
+
+<!-- UPLOAD DOCUMENT -->
+<div class="modal-overlay h" id="uploadDocModal" onclick="cmo(event,'uploadDocModal')">
+  <div class="modal"><div class="mhd"><h3>Upload Document</h3><button class="mhd-close" onclick="cm('uploadDocModal')">✕</button></div>
+  <div class="mbody">
+    <div class="drop-zone"><div class="dz-icon">📂</div><div class="dz-title">Click to select or drag & drop</div><div class="dz-sub">PDF, DOCX, XLSX, PPTX · Max 50MB · Virus-scanned on upload</div></div>
+    <div class="f2"><div class="fg"><label>Project</label><select class="fi"><option>Digital Lending (Indicina)</option><option>Xceed365 HCM</option><option>ERP Rebuild</option><option>SME Hub</option><option>UnionDirect MVP1</option><option>Account Maintenance</option></select></div><div class="fg"><label>Stage Gate</label><select class="fi"><option>Planning</option><option>Development</option><option>Integration</option><option>SIT</option><option>UAT</option><option>Assurance</option><option>Security Review</option><option>CCB Approval</option><option>Pilot</option></select></div></div>
+    <div class="f2"><div class="fg"><label>Document Type</label><select class="fi"><option>Project Charter</option><option>Test Plan</option><option>Defect Log</option><option>Sign-off / Approval</option><option>CCB Memo</option><option>Infosec Report</option><option>Technical Design</option><option>UAT Results</option><option>Other</option></select></div><div class="fg"><label>Version</label><input class="fi" placeholder="v1.0"/></div></div>
+    <div class="fg"><label>Notes for Reviewer</label><textarea class="fi" rows="2" placeholder="Any context for approvers…"></textarea></div>
+    <div style="background:#fff5f5;border:1px solid #fca5a5;border-radius:8px;padding:10px 13px;font-size:12px;color:#7f1d1d">🔒 Documents are encrypted at rest (AES-256) and in transit (TLS 1.3). Access is role-restricted based on project assignment.</div>
+  </div>
+  <div class="mfooter"><button class="btn-out" onclick="cm('uploadDocModal')">Cancel</button><button class="btn-red" onclick="toast('Document uploaded & encrypted. Stage gate updated. ✓','ok');cm('uploadDocModal')">Upload & Tag to Stage</button></div>
+  </div>
+</div>
+
+<!-- UPLOAD PLAN -->
+<div class="modal-overlay h" id="uploadPlanModal" onclick="cmo(event,'uploadPlanModal')">
+  <div class="modal"><div class="mhd"><h3>Upload Project Plan (Excel)</h3><button class="mhd-close" onclick="cm('uploadPlanModal')">✕</button></div>
+  <div class="mbody">
+    <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:12px 14px;font-size:12.5px;color:#1e40af;margin-bottom:16px;line-height:1.7">
+      <strong>Required Excel columns:</strong> Task Name · Assigned To · Planned Start Date · Planned End Date · % Complete · Status · Is Milestone (Y/N) · Priority<br><br>
+      The system will import all tasks, generate SLA tracking from planned dates, and compare actuals vs. planned automatically. You'll receive daily alerts for tasks falling behind.
+    </div>
+    <div class="drop-zone"><div class="dz-icon">📊</div><div class="dz-title">Drop Excel file here</div><div class="dz-sub">XLSX or XLS format only · Must use Union Bank template</div></div>
+    <div class="f2"><div class="fg"><label>Project *</label><select class="fi"><option>Digital Lending</option><option>Xceed365 HCM</option><option>ERP Rebuild</option><option>SME Hub</option></select></div><div class="fg"><label>Plan Version</label><input class="fi" placeholder="e.g. Baseline v1 / Revised v2"/></div></div>
+    <div class="fg"><label>Replace Existing Plan?</label><select class="fi"><option>Yes — replace and archive old plan</option><option>No — this is a new revision</option></select></div>
+  </div>
+  <div class="mfooter"><button class="btn-out" onclick="cm('uploadPlanModal')">Cancel</button><button class="btn-out" onclick="toast('Template downloaded','ok')">📥 Download Template</button><button class="btn-red" onclick="toast('Plan imported! 47 tasks loaded. SLA tracking active. 📊','ok');cm('uploadPlanModal')">Import Plan</button></div>
+  </div>
+</div>
+
+<!-- ADD TASK -->
+<div class="modal-overlay h" id="addTaskModal" onclick="cmo(event,'addTaskModal')">
+  <div class="modal"><div class="mhd"><h3>Add Task</h3><button class="mhd-close" onclick="cm('addTaskModal')">✕</button></div>
+  <div class="mbody">
+    <div class="fg"><label>Task Name *</label><input class="fi" placeholder="e.g. Deploy remediated build to QA server"/></div>
+    <div class="f2"><div class="fg"><label>Project *</label><select class="fi"><option>Digital Lending</option><option>Xceed365</option><option>ERP Rebuild</option><option>SME Hub</option></select></div><div class="fg"><label>Stage</label><select class="fi"><option>Planning</option><option>Development</option><option>Integration</option><option>SIT</option><option>UAT</option><option>Pilot</option><option>Deployment</option></select></div></div>
+    <div class="f2"><div class="fg"><label>Assigned To *</label><input class="fi" placeholder="Search staff name…"/></div><div class="fg"><label>Priority</label><select class="fi"><option>Critical</option><option>High</option><option>Medium</option><option>Low</option></select></div></div>
+    <div class="f2"><div class="fg"><label>Due Date *</label><input class="fi" type="date"/></div><div class="fg"><label>SLA (days)</label><input class="fi" type="number" placeholder="5"/></div></div>
+    <div class="fg"><label>Description / Acceptance Criteria</label><textarea class="fi" rows="2" placeholder="What must be done and how verified…"></textarea></div>
+  </div>
+  <div class="mfooter"><button class="btn-out" onclick="cm('addTaskModal')">Cancel</button><button class="btn-red" onclick="toast('Task created. SLA tracking started. ✓','ok');cm('addTaskModal')">Create Task</button></div>
+  </div>
+</div>
+
+<!-- WEEKLY UPDATE -->
+<div class="modal-overlay h" id="weeklyModal" onclick="cmo(event,'weeklyModal')">
+  <div class="modal wide"><div class="mhd"><h3>📧 Weekly Status Update</h3><button class="mhd-close" onclick="cm('weeklyModal')">✕</button></div>
+  <div class="mbody">
+    <div class="f3"><div class="fg"><label>Project</label><select class="fi"><option>Digital Lending (Indicina)</option><option>Xceed365 HCM</option><option>ERP Rebuild</option></select></div><div class="fg"><label>Week Ending</label><input class="fi" type="date"/></div><div class="fg"><label>Health</label><select class="fi"><option>🟢 On Track</option><option>🟡 At Risk</option><option>🔴 Blocked</option></select></div></div>
+    <div class="f2"><div class="fg"><label>Current Stage</label><select class="fi"><option>Integration</option><option>SIT</option><option>UAT</option><option>Pilot</option><option>Deployment</option></select></div><div class="fg"><label>% Complete</label><input class="fi" type="number" placeholder="57"/></div></div>
+    <div class="fg"><label>Key Achievements This Week *</label><textarea class="fi" rows="3" placeholder="What was completed this week…"></textarea></div>
+    <div class="fg"><label>Next Week Plan *</label><textarea class="fi" rows="3" placeholder="What will be actioned next week…"></textarea></div>
+    <div class="fg"><label>Pending Issues / Blockers</label><textarea class="fi" rows="2" placeholder="Any blockers requiring escalation…"></textarea></div>
+    <div class="fg"><label>Send To</label>
+      <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:5px">
+        <label style="display:flex;align-items:center;gap:5px;font-size:12.5px;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer;color:var(--txt)"><input type="checkbox" checked/> MD / CEO Office</label>
+        <label style="display:flex;align-items:center;gap:5px;font-size:12.5px;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer;color:var(--txt)"><input type="checkbox" checked/> Chief Technology Officer</label>
+        <label style="display:flex;align-items:center;gap:5px;font-size:12.5px;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer;color:var(--txt)"><input type="checkbox" checked/> IT Steering Committee</label>
+        <label style="display:flex;align-items:center;gap:5px;font-size:12.5px;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer;color:var(--txt)"><input type="checkbox"/> Business Owner / Sponsor</label>
+        <label style="display:flex;align-items:center;gap:5px;font-size:12.5px;font-weight:400;text-transform:none;letter-spacing:0;cursor:pointer;color:var(--txt)"><input type="checkbox"/> Risk & Compliance</label>
+      </div>
+    </div>
+  </div>
+  <div class="mfooter"><button class="btn-out" onclick="cm('weeklyModal')">Cancel</button><button class="btn-out">👁 Preview Email</button><button class="btn-red" onclick="toast('Weekly update sent to all selected stakeholders! 📧','ok');cm('weeklyModal')">Send Update</button></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast h" id="toastEl"></div>
+
+<script>
+'use strict';
+
+/* ═══════════════════════════
+   DATA
+═══════════════════════════ */
+const PROJECTS = [
+  {id:1,sn:1,name:'Digital Lending with Indicina',bu:'Retail',pm:'Rita Ejim',pmAv:'RE',stage:'Integration',stageCls:'int',pct:57,health:'a',achieve:'Union Online Integration Completed. SIT Defect list shared, remediation ongoing. Union360 Web Product Design approved for development. Integration Completed.',next:'Complete SIT. Move to Assurance testing. Union360 Web — complete encrypted build by Tuesday, deploy to QA test server, commence SIT.',blocker:'Union Online: Cannot deploy remediated build — Weblogic service unavailable on port 7002. Escalated to Head, Engineering.',date:'31-Mar-2026',azure:'ub/digital-lending',branch:'release/v2.3',commit:'a3f8c2d',pipeStatus:'fail',pipeMsg:'Failed at QA gate — Weblogic port 7002 unavailable. Engineering escalation required.',phases:{planning:100,dev:100,integration:70,sit:0,uat:0,pilot:0}},
+  {id:2,sn:2,name:'Xceed365 HCM (Phase 1)',bu:'Human Resources',pm:'Rita Ejim',pmAv:'RE',stage:'Deployment',stageCls:'deploy',pct:80,health:'a',achieve:'Deployment (Employee Provisioning, Enterprise Structure, Payroll) Completed. Pilot is Ongoing. Infosec Review — remediation of exceptions ongoing.',next:'Continue Pilot for Provisioning, Structure & Payroll. Performance Mgt — continue Infosec exception remediation.',blocker:'Issues on leave management. Defects on Performance management module.',date:'30-Apr-2026',azure:'ub/xceed365-hcm',branch:'release/phase1',commit:'f2a7b8e',pipeStatus:'run',pipeMsg:'Deploying to Production — Pilot in progress. 80% of modules deployed.',phases:{planning:100,dev:100,integration:100,sit:100,uat:100,pilot:80}},
+  {id:3,sn:3,name:'ERP Rebuild',bu:'GL & Budget',pm:'Samuel Akinde',pmAv:'SA',stage:'UAT',stageCls:'uat',pct:67,health:'a',achieve:'IT Control & Information Security review completed. SIT (GL & Budget) Completed. UAT (GL & Budget) CCB (GL & Budget) approved.',next:'Deployment GL & Budget Module. Pilot GL & Budget. SIT & Security test — Purchase Requisition. SIT & Functional Test — Payables and Expense.',blocker:'SIT defects pending resolution.',date:'30-Mar-2026',azure:'ub/erp-rebuild',branch:'feature/gl-budget',commit:'e7f3c9b',pipeStatus:'run',pipeMsg:'UAT in progress — Business testing GL & Budget modules. CCB pending for go-live.',phases:{planning:100,dev:100,integration:100,sit:100,uat:60,pilot:0}},
+  {id:4,sn:4,name:'SME Hub',bu:'Retail',pm:'Oluwaferanmi Oketope',pmAv:'FO',stage:'Development',stageCls:'dev',pct:38,health:'r',achieve:'Design completed: Vendor Module, Dashboard, Admin Module, Account Opening, Business Registration.',next:'Development to commence on Login & Dashboard, Admin Module, Account Opening, Business Registration, Community, Vendor Module, then SIT.',blocker:'Provision of VMs. Amendments on process flow (design).',date:'31-May-2026',azure:'ub/sme-hub',branch:'develop',commit:'c3d1a2f',pipeStatus:'wait',pipeMsg:'Development in progress — VM provisioning blocker delaying build deployment.',phases:{planning:100,dev:35,integration:0,sit:0,uat:0,pilot:0}},
+  {id:5,sn:5,name:'Free Banking for Payroll CA Holder',bu:'Retail',pm:'Oluwaferanmi Oketope',pmAv:'FO',stage:'SIT',stageCls:'sit',pct:60,health:'a',achieve:'Development completed. SIT Ongoing.',next:'Move to Assurance testing upon SIT completion.',blocker:'Vulnerability resolution & closure pending.',date:'09-Mar-2026',azure:'ub/free-banking-payroll',branch:'main',commit:'b8e2f4a',pipeStatus:'run',pipeMsg:'SIT running — vulnerability scan in progress.',phases:{planning:100,dev:100,integration:100,sit:60,uat:0,pilot:0}},
+  {id:6,sn:6,name:'API Management Suite',bu:'Ecosystem, Partnerships & Innovation',pm:'Emmanuel Ajao',pmAv:'EA',stage:'Development',stageCls:'dev',pct:30,health:'g',achieve:'Onboarding module (UI) development completed.',next:'SIT — Onboarding module. Development — Core services integration.',blocker:'None.',date:'30-Apr-2026',azure:'ub/api-mgmt-suite',branch:'develop',commit:'d4f7c1e',pipeStatus:'wait',pipeMsg:'Development phase. SIT environment being prepared.',phases:{planning:100,dev:30,integration:0,sit:0,uat:0,pilot:0}},
+  {id:7,sn:7,name:'Integrate with National Payment Stack (NPS)',bu:'Technology',pm:'Emmanuel Ajao',pmAv:'EA',stage:'Planning',stageCls:'plan',pct:10,health:'g',achieve:'Development (Integration to Miserv) commenced.',next:'Complete integration to Miserv and digital channels.',blocker:'None.',date:'TBD',azure:'ub/nps-integration',branch:'develop',commit:'a1b2c3d',pipeStatus:'wait',pipeMsg:'Early development stage — integration to Miserv in progress.',phases:{planning:80,dev:10,integration:0,sit:0,uat:0,pilot:0}},
+  {id:8,sn:8,name:'UnionDirect — New Wallet & Agency Banking (MVP1)',bu:'DFS',pm:'Elohor Useh',pmAv:'EU',stage:'Pilot',stageCls:'pilot',pct:88,health:'a',achieve:'Security Review commenced. IT Control Review commenced. DB migration to cloud (Test & Production) completed.',next:'Feedback from Security Review. Agent Test & Feedback. Fix Transaction Email issue.',blocker:'Email notification not delivering on some services. GL Fee configuration impacting card transactions. DB credentials in clear text — SECURITY RISK.',date:'26-Mar-2026',azure:'ub/uniondirect-mvp1',branch:'main',commit:'b9e1d4f',pipeStatus:'run',pipeMsg:'Security review running — DB credentials exposure being remediated urgently.',phases:{planning:100,dev:100,integration:100,sit:100,uat:100,pilot:88}},
+  {id:9,sn:9,name:'Turbo App (Assisted Account Opening)',bu:'DFS',pm:'Elohor Useh',pmAv:'EU',stage:'Pilot',stageCls:'pilot',pct:81,health:'r',achieve:'No major achievements to report this week.',next:'Resolve account creation issue and commence Tests.',blocker:'Error on AOBBS service impacting account creation.',date:'19-Mar-2026',azure:'ub/turbo-app-aao',branch:'hotfix/aobbs',commit:'f3e2d1c',pipeStatus:'run',pipeMsg:'Pilot active — AOBBS integration error blocking account creation.',phases:{planning:100,dev:100,integration:100,sit:100,uat:90,pilot:70}},
+  {id:10,sn:10,name:'Credit Card (API Integration with NI)',bu:'Retail',pm:'Elohor Useh',pmAv:'EU',stage:'Pilot',stageCls:'pilot',pct:82,health:'a',achieve:'Resolution of connection issue with NI completed. Card request sent to NI for processing.',next:'Resolve issue on NI endpoint impacting card request processing.',blocker:'Null response from NI endpoint.',date:'19-Apr-2026',azure:'ub/credit-card-ni',branch:'main',commit:'e5d4c3b',pipeStatus:'run',pipeMsg:'Pilot ongoing — NI endpoint returning null responses intermittently.',phases:{planning:100,dev:100,integration:100,sit:100,uat:90,pilot:70}},
+  {id:11,sn:11,name:'Account Maintenance',bu:'CPC',pm:'Mohammed Salami',pmAv:'MS',stage:'UAT',stageCls:'uat',pct:49,health:'a',achieve:'Phase 1: UAT session held with Business. Resolved 2/4 UAT issues. Phase 2: Ongoing resolution of QA bugs.',next:'Phase 1: Complete resolution of issues. Business Concurrence. Retest & QA/Security validation. CCB. Phase 2: Proceed to SIT Security test.',blocker:'Occasional downtime and FCUBS errors delay testing and bug resolution.',date:'28-Feb-2026',azure:'ub/account-maintenance',branch:'develop',commit:'c7b6a5d',pipeStatus:'run',pipeMsg:'UAT phase — FCUBS integration causing intermittent test failures.',phases:{planning:100,dev:90,integration:80,sit:70,uat:40,pilot:0}},
+  {id:12,sn:12,name:'Legal Search (Corporate Account Opening)',bu:'CPC',pm:'Mohammed Salami',pmAv:'MS',stage:'Deployment',stageCls:'deploy',pct:90,health:'g',achieve:'All fixes and tests completed. Pending final test dependent on Corporate Account creation.',next:'Awaiting feedback from Business on final test.',blocker:'None.',date:'28-Feb-2026',azure:'ub/legal-search',branch:'main',commit:'d8c7b6a',pipeStatus:'run',pipeMsg:'Deployment stage — awaiting business sign-off for final go-live.',phases:{planning:100,dev:100,integration:100,sit:100,uat:100,pilot:90}},
+  {id:13,sn:13,name:'Omnichannel',bu:'Retail',pm:'Marvellous Oyekola',pmAv:'MO',stage:'Deployment',stageCls:'deploy',pct:80,health:'a',achieve:'Deployment and resolution of pending deployment issues. Encryption of secret client and password on payload completed.',next:'Start Pilot.',blocker:'Login issues still pending due to errors from AOBBS service.',date:'24-Mar-2026',azure:'ub/omnichannel',branch:'release/v1.0',commit:'d1a4f6c',pipeStatus:'fail',pipeMsg:'Deployment failed — AOBBS login integration error blocking go-live.',phases:{planning:100,dev:100,integration:100,sit:100,uat:100,pilot:0}},
+  {id:14,sn:14,name:'Paygilant Channels (Cards)',bu:'Control/Fraud Team',pm:'Praise Itodo',pmAv:'PI',stage:'Pilot',stageCls:'pilot',pct:95,health:'g',achieve:'Closed out the currency unit conversion issue.',next:'Deploy cards implementation without currency unit change.',blocker:'None.',date:'28-Feb-2026',azure:'ub/paygilant-cards',branch:'main',commit:'c4d2e1a',pipeStatus:'done',pipeMsg:'All pipeline stages passed. Pilot active — ready for CCB go-live.',phases:{planning:100,dev:100,integration:100,sit:100,uat:100,pilot:95}},
+  {id:15,sn:15,name:'Paygilant Channels (UnionMobile)',bu:'Control/Fraud Team',pm:'Elohor Useh',pmAv:'EU',stage:'Pilot',stageCls:'pilot',pct:95,health:'a',achieve:'iOS deployed successfully.',next:'Deployment of Android to store.',blocker:'Android rejected by Playstore due to restriction on use of some privacy permissions.',date:'28-Feb-2026',azure:'ub/paygilant-mobile',branch:'main',commit:'b3c2d1e',pipeStatus:'run',pipeMsg:'iOS live. Android deployment blocked — Playstore policy violation being resolved.',phases:{planning:100,dev:100,integration:100,sit:100,uat:100,pilot:90}},
+  {id:16,sn:16,name:'Paygilant Channels (M36 Android)',bu:'Control/Fraud Team',pm:'Elohor Useh',pmAv:'EU',stage:'UAT',stageCls:'uat',pct:75,health:'a',achieve:'QA regression test commenced.',next:'Complete QA regression test. CCB for go-live.',blocker:'App crashing after transaction to saved beneficiary. Paygilant not receiving some processed transactions.',date:'28-Feb-2026',azure:'ub/paygilant-m36',branch:'develop',commit:'a2b3c4d',pipeStatus:'run',pipeMsg:'UAT running — crash issues under investigation by dev team.',phases:{planning:100,dev:100,integration:100,sit:90,uat:50,pilot:0}},
+  {id:17,sn:17,name:'Union360 2.0 (Web & Mobile — Sprint 1, Phase 2)',bu:'Corporate Banking',pm:'Elohor Useh',pmAv:'EU',stage:'UAT',stageCls:'uat',pct:45,health:'a',achieve:'Web: CCB approval, Deployment to Pilot. Mobile: SIT completed, QA security test completed.',next:'Web: Pilot Validation. Mobile: Resolve QA security test issues. Commence Internal Control and Security Review.',blocker:'QA Security test dependencies not yet resolved.',date:'20-Mar-2026',azure:'ub/union360-2',branch:'feature/sprint1-phase2',commit:'e1f2a3b',pipeStatus:'run',pipeMsg:'Web in Pilot; Mobile in UAT with security test dependencies blocking.',phases:{planning:100,dev:100,integration:90,sit:80,uat:40,pilot:10}},
+  {id:18,sn:18,name:'Union Collect Revamp (Phase 2)',bu:'Wholesale Digital Banking',pm:'Marvellous Oyekola',pmAv:'MO',stage:'Multi-stage',stageCls:'multi',pct:40,health:'r',achieve:'CHI Limited middleware service developed and on SIT. Lagrev Pay with webguide development completed.',next:'Go-Live: MTN Coral Pay on Union Collect Revamp. Complete SIT: Grimaldi, CHI.',blocker:'1) Dangote — no feedback on network connection. 2) NBL & Remita — pending IT Control/Infosec 3+ weeks. 3) Xpresspay — internal network issues pending resolution.',date:'13-Apr-2026',azure:'ub/union-collect-v2',branch:'develop',commit:'f4e3d2c',pipeStatus:'run',pipeMsg:'Multi-partner integration — several sub-projects at different stages.',phases:{planning:100,dev:70,integration:40,sit:30,uat:0,pilot:10}}
+];
+
+const GATE_DOCS = {
+  Planning:    [{done:true,n:'Business Case / Problem Statement'},{done:true,n:'Project Charter'},{done:true,n:'Stakeholder Register'},{done:true,n:'Initial Risk Register'},{done:true,n:'Resource & Budget Plan'}],
+  Development: [{done:true,n:'Technical Architecture Document'},{done:true,n:'Azure DevOps Repo Created'},{done:true,n:'Development Kickoff Minutes'},{done:true,n:'Unit Test Plan'},{done:false,n:'Code Review Sign-off'}],
+  Integration: [{done:true,n:'Integration Test Plan'},{done:true,n:'API Documentation'},{done:true,n:'SIT Defect Log v1'},{done:false,n:'Remediation Sign-off'},{done:false,n:'Integration Completion Certificate'}],
+  SIT:         [{done:false,n:'SIT Test Cases'},{done:false,n:'SIT Defect Register'},{done:false,n:'Remediation Evidence'},{done:false,n:'SIT Sign-off'},{done:false,n:'Security Test Initiation'}],
+  UAT:         [{done:false,n:'UAT Test Plan'},{done:false,n:'Business Tester Sign-on'},{done:false,n:'UAT Defect Log'},{done:false,n:'Business Concurrence'},{done:false,n:'UAT Completion Certificate'}],
+  Assurance:   [{done:false,n:'Assurance Test Plan'},{done:false,n:'Vulnerability Assessment'},{done:false,n:'Penetration Test Results'},{done:false,n:'Assurance Sign-off'}],
+  Security:    [{done:false,n:'Infosec Review Report'},{done:false,n:'IT Control Review'},{done:false,n:'Exception Log & Remediation'},{done:false,n:'Security Clearance Certificate'}],
+  CCB:         [{done:false,n:'CCB Presentation Deck'},{done:false,n:'All Prior Stage Sign-offs'},{done:false,n:'Rollback Plan'},{done:false,n:'Go-Live Checklist'},{done:false,n:'CCB Approval Memo'}],
+  Pilot:       [{done:false,n:'Pilot Plan'},{done:false,n:'Pilot Acceptance Criteria'},{done:false,n:'Agent/User Feedback Log'},{done:false,n:'Pilot Sign-off'}],
+};
+
+const ROLES = {
+  pm:    {label:'Rita Ejim',   role:'Project Manager',          av:'RE', chip:'PM View',        myProjects:[0,1,5,6]},
+  pm2:   {label:'Elohor Useh', role:'Project Manager',          av:'EU', chip:'PM View',        myProjects:[7,8,9,14,15,16]},
+  pm3:   {label:'Mohammed Salami',role:'Project Manager',       av:'MS', chip:'PM View',        myProjects:[10,11]},
+  qa:    {label:'Tunde Alabi', role:'QA Engineer',              av:'TA', chip:'QA View',        myProjects:null},
+  head:  {label:'Chidi Okeke', role:'IT Director / Project Head',av:'CO',chip:'Director View', myProjects:null},
+  dev:   {label:'Emeka Nwosu', role:'Developer / DevOps',       av:'EN', chip:'Developer View', myProjects:null},
+  stake: {label:'Ify Okonkwo', role:'Business Stakeholder',     av:'IO', chip:'Stakeholder View',myProjects:null},
+};
+
+let currentRole = 'pm';
+let currentNav  = 'dashboard';
+
+/* ═══════════════════════════
+   AUTH
+═══════════════════════════ */
+function doLogin(){
+  const user = document.getElementById('loginUser').value;
+  const pass = document.getElementById('loginPass').value;
+  const role = document.getElementById('loginRole').value;
+  if(!user || !pass){ toast('Please enter credentials','err'); return; }
+  currentRole = role;
+  document.getElementById('loginFormArea').classList.add('h');
+  document.getElementById('mfaArea').classList.remove('h');
+  // Auto-fill MFA for demo
+  setTimeout(()=>{
+    ['d1','d2','d3','d4','d5','d6'].forEach((id,i)=>{ document.getElementById(id).value=i+1; });
+  },300);
+}
+function showLogin(){
+  document.getElementById('loginFormArea').classList.remove('h');
+  document.getElementById('mfaArea').classList.add('h');
+}
+function mfaNext(el,nextId){
+  if(el.value.length===1) document.getElementById(nextId).focus();
+}
+function mfaVerify(){
+  const code=['d1','d2','d3','d4','d5','d6'].map(id=>document.getElementById(id).value).join('');
+  if(code.length===6){ setTimeout(launchApp, 400); }
+}
+function mfaVerifyManual(){
+  const code=['d1','d2','d3','d4','d5','d6'].map(id=>document.getElementById(id).value).join('');
+  if(code.length<6){ toast('Enter all 6 digits','err'); return; }
+  launchApp();
+}
+function launchApp(){
+  document.getElementById('loginScreen').style.display='none';
+  const shell=document.getElementById('appShell');
+  shell.style.display='flex';
+  shell.classList.add('visible');
+  initApp();
+}
+function doLogout(){
+  document.getElementById('appShell').style.display='none';
+  document.getElementById('loginScreen').style.display='flex';
+  document.getElementById('loginFormArea').classList.remove('h');
+  document.getElementById('mfaArea').classList.add('h');
+  ['d1','d2','d3','d4','d5','d6'].forEach(id=>{ document.getElementById(id).value=''; });
+}
+
+/* ═══════════════════════════
+   APP INIT
+═══════════════════════════ */
+function initApp(){
+  const R = ROLES[currentRole];
+  document.getElementById('sbAv').textContent=R.av;
+  document.getElementById('sbName').textContent=R.label;
+  document.getElementById('sbRole').textContent=R.role;
+  document.getElementById('roleChip').textContent=R.chip;
+  buildNav();
+  navigate('dashboard');
+}
+
+function buildNav(){
+  const roleNav = {
+    pm:    [['dashboard','⊞','Dashboard'],['projects','◈','My Projects'],['mytasks','✓','My Tasks',2],['stagegates','🔐','Stage Gates'],['documents','📁','Documents'],['plan','📊','Project Plan'],['azure','⚡','Azure DevOps'],['---'],['updates','📧','Weekly Updates'],['stakeholders','👥','Stakeholders']],
+    pm2:   [['dashboard','⊞','Dashboard'],['projects','◈','My Projects'],['mytasks','✓','My Tasks',1],['stagegates','🔐','Stage Gates'],['documents','📁','Documents'],['plan','📊','Project Plan'],['azure','⚡','Azure DevOps'],['---'],['updates','📧','Weekly Updates'],['stakeholders','👥','Stakeholders']],
+    pm3:   [['dashboard','⊞','Dashboard'],['projects','◈','My Projects'],['mytasks','✓','My Tasks',3],['stagegates','🔐','Stage Gates'],['documents','📁','Documents'],['plan','📊','Project Plan'],['azure','⚡','Azure DevOps'],['---'],['updates','📧','Weekly Updates'],['stakeholders','👥','Stakeholders']],
+    qa:    [['dashboard','⊞','Dashboard'],['projects','◈','All Projects'],['qa_work','🧪','My QA Work',5],['azure','⚡','Azure DevOps'],['documents','📁','Documents'],['stagegates','🔐','Stage Gates']],
+    head:  [['dashboard','⊞','Portfolio Overview'],['projects','◈','All Projects'],['stagegates','🔐','Stage Gates'],['azure','⚡','Azure Pipelines'],['updates','📧','All Updates'],['stakeholders','👥','Stakeholders'],['security','🔒','Security Status']],
+    dev:   [['dashboard','⊞','Dashboard'],['azure','⚡','My Pipelines',1],['mytasks','✓','Dev Tasks',2],['projects','◈','Projects'],['documents','📁','Documents']],
+    stake: [['dashboard','⊞','Executive Summary'],['projects','◈','Project Status'],['updates','📧','Status Reports']],
+  };
+  const nav = roleNav[currentRole] || roleNav['pm'];
+  let html='';
+  nav.forEach(item=>{
+    if(item[0]==='---'){ html+='<div class="ndiv"></div>'; return; }
+    const [id,ic,lbl,badge] = item;
+    html+=`<div class="ni" data-page="${id}" onclick="navigate('${id}',this)"><span class="ni-ic">${ic}</span><span>${lbl}</span>${badge?`<span class="ni-badge">${badge}</span>`:''}</div>`;
+  });
+  document.getElementById('sideNav').innerHTML = html;
+}
+
+/* ═══════════════════════════
+   NAVIGATION
+═══════════════════════════ */
+const PAGE_TITLES = {
+  dashboard:'Dashboard', projects:'Projects', mytasks:'My Tasks', qa_work:'QA Work Queue',
+  stagegates:'Stage Gates', documents:'Documents', plan:'Project Plan', azure:'Azure DevOps',
+  updates:'Weekly Updates', stakeholders:'Stakeholders', security:'Security Status',
+  projectDetail:'Project Detail',
+};
+const PAGE_CRUMB = {
+  dashboard:'Home', projects:'Home / Projects', mytasks:'Home / My Tasks', qa_work:'Home / QA Work',
+  stagegates:'Home / Stage Gates', documents:'Home / Documents', plan:'Home / Project Plan',
+  azure:'Home / Azure DevOps', updates:'Home / Weekly Updates', stakeholders:'Home / Stakeholders',
+  security:'Home / Security', projectDetail:'Home / Projects / Detail',
+};
+
+function navigate(pageId, navEl){
+  currentNav = pageId;
+  document.querySelectorAll('.ni').forEach(n=>n.classList.remove('on'));
+  if(navEl) navEl.classList.add('on');
+  else { const ni=document.querySelector(`.ni[data-page="${pageId}"]`); if(ni)ni.classList.add('on'); }
+  document.getElementById('pgTitle').textContent = PAGE_TITLES[pageId]||pageId;
+  document.getElementById('pgCrumb').textContent = PAGE_CRUMB[pageId]||'';
+  document.getElementById('notifPanel').classList.add('h');
+  renderPage(pageId);
+}
+
+/* ═══════════════════════════
+   PAGE RENDERER
+═══════════════════════════ */
+function renderPage(pageId){
+  const area = document.getElementById('mainArea');
+  const role = currentRole;
+
+  if(pageId==='dashboard'){
+    if(role==='head') area.innerHTML = renderHeadDashboard();
+    else if(role==='qa') area.innerHTML = renderQADashboard();
+    else if(role==='dev') area.innerHTML = renderDevDashboard();
+    else if(role==='stake') area.innerHTML = renderStakeDashboard();
+    else area.innerHTML = renderPMDashboard();
+  }
+  else if(pageId==='projects') area.innerHTML = renderProjects();
+  else if(pageId==='mytasks')  area.innerHTML = renderMyTasks();
+  else if(pageId==='qa_work')  area.innerHTML = renderQAWork();
+  else if(pageId==='stagegates') area.innerHTML = renderStageGates();
+  else if(pageId==='documents')  area.innerHTML = renderDocuments();
+  else if(pageId==='plan')       area.innerHTML = renderPlanPage();
+  else if(pageId==='azure')      area.innerHTML = renderAzure();
+  else if(pageId==='updates')    area.innerHTML = renderUpdates();
+  else if(pageId==='stakeholders') area.innerHTML = renderStakeholders();
+  else if(pageId==='security')   area.innerHTML = renderSecurity();
+  else if(pageId==='projectDetail') { /* already rendered */ }
+}
+
+/* ═══ PM DASHBOARD ═══ */
+function renderPMDashboard(){
+  const R = ROLES[currentRole];
+  const myProjs = R.myProjects ? PROJECTS.filter((_,i)=>R.myProjects.includes(i)) : PROJECTS.slice(0,4);
+  const blocked = myProjs.filter(p=>p.health==='r');
+  const risk    = myProjs.filter(p=>p.health==='a');
+  return `<div class="sc on" style="padding:22px 26px">
+  ${renderRoleBanner()}
+  <div class="kpi-row">
+    <div class="kpi red"><div class="kpi-lbl">My Projects</div><div class="kpi-val">${myProjs.length}</div><div class="kpi-sub">Active</div></div>
+    <div class="kpi warn"><div class="kpi-lbl">Blockers</div><div class="kpi-val">${blocked.length+risk.length}</div><div class="kpi-sub">Need action</div></div>
+    <div class="kpi green"><div class="kpi-lbl">Tasks Due Today</div><div class="kpi-val">3</div><div class="kpi-sub">2 SLA warnings</div></div>
+    <div class="kpi gold"><div class="kpi-lbl">Weekly Report</div><div class="kpi-val" style="font-size:20px">Due</div><div class="kpi-sub" style="color:var(--warn);font-weight:700">Submit today</div></div>
+  </div>
+  <div class="g2">
+    <div>
+      <div class="sec-hdr"><div class="sec-title">My Projects</div><button class="btn-ghost" onclick="navigate('projects')">View All →</button></div>
+      ${myProjs.map(p=>`
+      <div class="pcard ${p.health==='r'?'blocked-c':p.health==='a'?'at-risk':'on-track'}" onclick="openProject(${p.id})" style="margin-bottom:10px">
+        <div class="pc-top"><div><div class="pc-name">${p.name}</div><div class="pc-bu">${p.bu}</div></div><span class="badge ${p.stageCls}">${p.stage}</span></div>
+        <div class="pc-pm"><div class="av sm">${p.pmAv}</div>${p.pm} · Go-Live: <strong>${p.date}</strong></div>
+        <div class="prb" style="margin-bottom:6px"><div class="prf ${p.pct>=70?'ok':p.pct>=40?'warn':'red'}" style="width:${p.pct}%"></div></div>
+        <div class="pc-foot"><span class="pc-pct">${p.pct}% Complete</span><span class="pc-date">${p.date}</span></div>
+        ${p.blocker&&p.blocker!=='None.'?`<div class="pc-blocker">⊘ ${p.blocker.substring(0,90)}${p.blocker.length>90?'…':''}</div>`:''}
+      </div>`).join('')}
+    </div>
+    <div class="g2" style="grid-template-rows:auto auto;align-content:start;gap:14px">
+      <div class="card">
+        <div class="card-title">⏳ Upcoming Go-Lives</div>
+        ${[{n:'Free Banking Payroll',d:'09-Mar-26',col:'err'},{n:'Account Maintenance',d:'28-Feb-26',col:'err'},{n:'Legal Search',d:'28-Feb-26',col:'err'},{n:'Turbo App',d:'19-Mar-26',col:'warn'},{n:'UnionDirect',d:'26-Mar-26',col:'warn'},{n:'Digital Lending',d:'31-Mar-26',col:'ok'}].map(x=>`
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #f1f5f9;font-size:13px">
+          <span>${x.n}</span>
+          <span style="font-weight:700;color:var(--${x.col})">${x.d}</span>
+        </div>`).join('')}
+      </div>
+      <div class="card">
+        <div class="card-title">📋 This Week</div>
+        <div class="act-feed">
+          <div class="act-item"><div class="act-dot ok">✓</div><div class="act-txt"><strong>SIT Defect Log</strong> shared with dev team<br><small>Digital Lending · Today</small></div></div>
+          <div class="act-item"><div class="act-dot err">⊘</div><div class="act-txt"><strong>Weblogic port 7002</strong> escalated to Engineering Head<br><small>Digital Lending · 2hrs ago</small></div></div>
+          <div class="act-item"><div class="act-dot warn">⚠</div><div class="act-txt"><strong>Leave management bugs</strong> — defect triage scheduled<br><small>Xceed365 · Yesterday</small></div></div>
+          <div class="act-item"><div class="act-dot info">📧</div><div class="act-txt"><strong>Weekly report due</strong> — submit by 5PM today<br><small>All projects</small></div></div>
+        </div>
+        <button class="btn-red sm" style="margin-top:12px;width:100%" onclick="om('weeklyModal')">📧 Submit Weekly Report</button>
+      </div>
+      <div class="card">
+        <div class="card-title">⚠ Active Blockers</div>
+        <div class="blocker-card crit"><div class="bc-proj r">Digital Lending</div><div class="bc-txt">Weblogic unavailable on port 7002 — build cannot be deployed</div></div>
+        <div class="blocker-card warn"><div class="bc-proj w">Xceed365 HCM</div><div class="bc-txt">Defects on Performance Management. Leave management issues.</div></div>
+      </div>
+    </div>
+  </div></div>`;
+}
+
+/* ═══ HEAD/DIRECTOR DASHBOARD ═══ */
+function renderHeadDashboard(){
+  const onTrack=PROJECTS.filter(p=>p.health==='g').length;
+  const atRisk=PROJECTS.filter(p=>p.health==='a').length;
+  const blocked=PROJECTS.filter(p=>p.health==='r').length;
+  return `<div class="sc on" style="padding:22px 26px">
+  ${renderRoleBanner()}
+  <div class="kpi-row">
+    <div class="kpi blue"><div class="kpi-lbl">Total Active Projects</div><div class="kpi-val">18</div><div class="kpi-sub">Across 8 business units</div></div>
+    <div class="kpi green"><div class="kpi-lbl">On Track</div><div class="kpi-val" style="color:var(--ok)">${onTrack}</div><div class="kpi-sub">No immediate action</div></div>
+    <div class="kpi warn"><div class="kpi-lbl">At Risk</div><div class="kpi-val" style="color:var(--warn)">${atRisk}</div><div class="kpi-sub">Monitoring required</div></div>
+    <div class="kpi red"><div class="kpi-lbl">Blocked</div><div class="kpi-val" style="color:var(--err)">${blocked}</div><div class="kpi-sub">Requires escalation</div></div>
+    <div class="kpi gold"><div class="kpi-lbl">Gate Approvals Pending</div><div class="kpi-val">4</div><div class="kpi-sub">Awaiting sign-off</div></div>
+  </div>
+  <div class="g2" style="margin-bottom:14px">
+    <div class="card">
+      <div class="card-title">Portfolio Health by Stage</div>
+      ${[['Pilot / Near Go-Live','#be185d',39,7],['UAT','#c2410c',22,4],['SIT','#0f766e',11,2],['Development','#6d28d9',17,3],['Deployment / Live','#065f46',17,3]].map(([lbl,col,w,n])=>`
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;font-size:12.5px">
+        <span style="width:150px;color:var(--txt2)">${lbl}</span>
+        <div style="flex:1;height:8px;background:#e2e8f0;border-radius:4px;overflow:hidden"><div style="width:${w}%;height:100%;background:${col};border-radius:4px"></div></div>
+        <span style="font-weight:700;width:18px;text-align:right">${n}</span>
+      </div>`).join('')}
+    </div>
+    <div class="card">
+      <div class="card-title">🔴 Critical Escalations</div>
+      <div class="blocker-card crit"><div class="bc-proj r">Digital Lending — Rita Ejim</div><div class="bc-txt">Weblogic service on port 7002 unavailable. Build cannot be deployed to QA. Engineering team escalation pending.</div></div>
+      <div class="blocker-card crit"><div class="bc-proj r">UnionDirect — Elohor Useh</div><div class="bc-txt">DB credentials stored in clear text — SECURITY RISK. Requires immediate Infosec intervention.</div></div>
+      <div class="blocker-card warn"><div class="bc-proj w">Union Collect Revamp — Marvellous Oyekola</div><div class="bc-txt">NBL & Remita Infosec review stalled 3+ weeks. Dangote network issue unresolved. Xpresspay internal network pending.</div></div>
+      <div class="blocker-card warn"><div class="bc-proj w">Paygilant M36 — Elohor Useh</div><div class="bc-txt">App crashing after transaction to saved beneficiary. Playstore Android rejection.</div></div>
+    </div>
+  </div>
+  <div class="sec-hdr"><div class="sec-title">All Projects — Portfolio View</div></div>
+  <div class="card" style="overflow-x:auto">
+  <table class="tbl">
+    <thead><tr><th>#</th><th>Project</th><th>PM</th><th>Stage</th><th>Progress</th><th>Health</th><th>Go-Live</th><th>Actions</th></tr></thead>
+    <tbody>
+    ${PROJECTS.map(p=>`<tr onclick="openProject(${p.id})">
+      <td style="font-size:12px;color:var(--txt3)">${p.sn}</td>
+      <td><strong>${p.name}</strong><div style="font-size:11px;color:var(--ub-red)">${p.bu}</div></td>
+      <td><div class="mc"><div class="av sm">${p.pmAv}</div><span style="font-size:12px">${p.pm.split(' ')[0]}</span></div></td>
+      <td><span class="badge ${p.stageCls}">${p.stage}</span></td>
+      <td><div class="pb-sm"><div style="width:${p.pct}%"></div></div><span style="font-size:12px;font-weight:700">${p.pct}%</span></td>
+      <td><span class="hd ${p.health}"></span></td>
+      <td style="font-size:12px;font-weight:600;color:${p.date==='TBD'?'var(--txt3)':'var(--ub-navy)'}">${p.date}</td>
+      <td><button class="btn-ghost" onclick="event.stopPropagation();openProject(${p.id})">View</button></td>
+    </tr>`).join('')}
+    </tbody>
+  </table></div></div>`;
+}
+
+/* ═══ QA DASHBOARD ═══ */
+function renderQADashboard(){
+  return `<div class="sc on" style="padding:22px 26px">
+  ${renderRoleBanner()}
+  <div class="kpi-row">
+    <div class="kpi blue"><div class="kpi-lbl">Projects in Testing</div><div class="kpi-val">8</div><div class="kpi-sub">SIT/UAT/Assurance</div></div>
+    <div class="kpi red"><div class="kpi-lbl">Open Defects</div><div class="kpi-val" style="color:var(--err)">23</div><div class="kpi-sub">6 critical</div></div>
+    <div class="kpi warn"><div class="kpi-lbl">SLA Breached</div><div class="kpi-val" style="color:var(--warn)">4</div><div class="kpi-sub">Overdue defects</div></div>
+    <div class="kpi green"><div class="kpi-lbl">Closed This Week</div><div class="kpi-val" style="color:var(--ok)">11</div><div class="kpi-sub">Defects resolved</div></div>
+  </div>
+  <div class="g2">
+    <div class="card">
+      <div class="card-title">🧪 Active Test Projects</div>
+      ${[{n:'ERP Rebuild',s:'UAT',p:67,def:5},{n:'Account Maintenance',s:'UAT',p:49,def:4},{n:'Paygilant M36 Android',s:'UAT',p:75,def:8},{n:'Union360 2.0',s:'UAT/SIT',p:45,def:3},{n:'Free Banking Payroll',s:'SIT',p:60,def:2},{n:'UnionDirect',s:'Pilot QA',p:88,def:1}].map(x=>`
+      <div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #f1f5f9;font-size:13px">
+        <div style="flex:1"><div style="font-weight:600">${x.n}</div><div style="font-size:11px;color:var(--txt3)">${x.s}</div></div>
+        <span style="background:#fef2f2;color:var(--err);padding:2px 8px;border-radius:4px;font-size:11.5px;font-weight:700">${x.def} defects</span>
+        <button class="btn-ghost" style="font-size:11px">Open</button>
+      </div>`).join('')}
+    </div>
+    <div class="card">
+      <div class="card-title">🔴 Critical Defects — Awaiting Fix</div>
+      ${[{p:'Digital Lending',d:'Deploy blocker — Weblogic 7002',sev:'CRIT'},{p:'UnionDirect',d:'DB credentials in clear text',sev:'CRIT'},{p:'Paygilant M36',d:'App crash on beneficiary transaction',sev:'HIGH'},{p:'Account Maint.',d:'FCUBS downtime impacting UAT',sev:'HIGH'},{p:'Omnichannel',d:'AOBBS login integration failure',sev:'CRIT'},{p:'Credit Card NI',d:'Null response from NI endpoint',sev:'HIGH'}].map(x=>`
+      <div style="display:flex;gap:9px;padding:8px 0;border-bottom:1px solid #f1f5f9;font-size:12.5px;align-items:flex-start">
+        <span style="background:${x.sev==='CRIT'?'#fef2f2':'#fffbeb'};color:${x.sev==='CRIT'?'var(--err)':'var(--warn)'};padding:2px 6px;border-radius:4px;font-size:10px;font-weight:700;flex-shrink:0">${x.sev}</span>
+        <div><div style="font-weight:600">${x.p}</div><div style="color:var(--txt2)">${x.d}</div></div>
+      </div>`).join('')}
+    </div>
+  </div></div>`;
+}
+
+/* ═══ DEV DASHBOARD ═══ */
+function renderDevDashboard(){
+  return `<div class="sc on" style="padding:22px 26px">
+  ${renderRoleBanner()}
+  <div class="kpi-row">
+    <div class="kpi red"><div class="kpi-lbl">My Pipelines</div><div class="kpi-val">6</div><div class="kpi-sub">Active</div></div>
+    <div class="kpi red"><div class="kpi-lbl">Failed Builds</div><div class="kpi-val" style="color:var(--err)">2</div><div class="kpi-sub">Requires fix</div></div>
+    <div class="kpi warn"><div class="kpi-lbl">Dev Tasks Due</div><div class="kpi-val">5</div><div class="kpi-sub">3 SLA warnings</div></div>
+    <div class="kpi green"><div class="kpi-lbl">Deployments Today</div><div class="kpi-val" style="color:var(--ok)">1</div><div class="kpi-sub">Xceed365 Prod</div></div>
+  </div>
+  <div class="sec-hdr"><div class="sec-title">My Azure Pipelines</div><button class="btn-ghost" onclick="navigate('azure')">Full View →</button></div>
+  ${renderAzurePipelines(true)}
+  </div>`;
+}
+
+/* ═══ STAKEHOLDER DASHBOARD ═══ */
+function renderStakeDashboard(){
+  return `<div class="sc on" style="padding:22px 26px">
+  ${renderRoleBanner()}
+  <div class="kpi-row">
+    <div class="kpi blue"><div class="kpi-lbl">Total Projects</div><div class="kpi-val">18</div></div>
+    <div class="kpi green"><div class="kpi-lbl">On Track</div><div class="kpi-val" style="color:var(--ok)">7</div></div>
+    <div class="kpi warn"><div class="kpi-lbl">At Risk</div><div class="kpi-val" style="color:var(--warn)">8</div></div>
+    <div class="kpi red"><div class="kpi-lbl">Blocked</div><div class="kpi-val" style="color:var(--err)">3</div></div>
+  </div>
+  <div class="role-banner" style="background:linear-gradient(135deg,#1e3a5f,#0B1C39);margin-bottom:16px">
+    <span style="font-size:22px">👁</span>
+    <div><div style="font-weight:700;font-size:14px">Read-Only Stakeholder View</div><div style="font-size:12px;color:rgba(255,255,255,.6)">You are viewing high-level project summaries only. Detailed operational data requires PM or higher access.</div></div>
+  </div>
+  <div class="card" style="overflow-x:auto">
+  <table class="tbl">
+    <thead><tr><th>Project</th><th>Business Unit</th><th>PM</th><th>Stage</th><th>Progress</th><th>Go-Live</th><th>Health</th></tr></thead>
+    <tbody>
+    ${PROJECTS.map(p=>`<tr>
+      <td><strong>${p.name}</strong></td>
+      <td style="font-size:12px;color:var(--txt2)">${p.bu}</td>
+      <td><div class="mc"><div class="av sm">${p.pmAv}</div>${p.pm.split(' ')[0]}</div></td>
+      <td><span class="badge ${p.stageCls}">${p.stage}</span></td>
+      <td><div class="pb-sm"><div style="width:${p.pct}%"></div></div>${p.pct}%</td>
+      <td style="font-weight:600;font-size:12px">${p.date}</td>
+      <td><span class="hd ${p.health}"></span> ${p.health==='g'?'On Track':p.health==='a'?'At Risk':'Blocked'}</td>
+    </tr>`).join('')}
+    </tbody>
+  </table></div></div>`;
+}
+
+/* ═══ ROLE BANNER ═══ */
+function renderRoleBanner(){
+  const banners = {
+    pm:    {ic:'📋',title:`Project Manager — ${ROLES[currentRole].label}`,sub:'Manage your projects, tasks, stage gates, documents and weekly updates.',pills:['My Projects','SLA Tracking','Stage Gates','Weekly Reports']},
+    pm2:   {ic:'📋',title:`Project Manager — ${ROLES[currentRole].label}`,sub:'Manage your projects, tasks, stage gates, documents and weekly updates.',pills:['My Projects','SLA Tracking','Stage Gates','Weekly Reports']},
+    pm3:   {ic:'📋',title:`Project Manager — ${ROLES[currentRole].label}`,sub:'Manage your projects, tasks, stage gates, documents and weekly updates.',pills:['My Projects','SLA Tracking','Stage Gates','Weekly Reports']},
+    qa:    {ic:'🧪',title:'QA Engineer View — Tunde Alabi',sub:'View and manage test cases, defect logs, SIT/UAT work items and security test sign-offs.',pills:['Test Cases','Defect Register','SIT/UAT','Security Tests']},
+    head:  {ic:'👔',title:'IT Director / Project Head — Chidi Okeke',sub:'Full portfolio view. All escalations, stage gate approvals, CCB items, resource conflicts and executive reports.',pills:['All Projects','Escalations','Gate Approvals','CCB','Executive Reports']},
+    dev:   {ic:'💻',title:'Developer / DevOps — Emeka Nwosu',sub:'View assigned development tasks, Azure pipeline status, build deployments and code review assignments.',pills:['Dev Tasks','Azure Pipelines','Build Status','Deployments']},
+    stake: {ic:'📊',title:'Stakeholder / Business Owner — Ify Okonkwo',sub:'Read-only executive summary view. High-level status, go-live timelines and weekly update reports.',pills:['Read Only','Status Summaries','Go-Live Dates']},
+  };
+  const b = banners[currentRole];
+  if(!b) return '';
+  return `<div class="role-banner">
+    <span class="rb-icon">${b.ic}</span>
+    <div><div class="rb-title">${b.title}</div><div class="rb-sub">${b.sub}</div></div>
+    <div class="rb-pills">${b.pills.map(p=>`<span class="rb-pill">${p}</span>`).join('')}</div>
+  </div>`;
+}
+
+/* ═══ PROJECTS PAGE ═══ */
+function renderProjects(){
+  const R = ROLES[currentRole];
+  const show = (currentRole.startsWith('pm') && R.myProjects) ? PROJECTS.filter((_,i)=>R.myProjects.includes(i)) : PROJECTS;
+  return `<div class="sc on" style="padding:22px 26px">
+  <div class="tbar">
+    <div class="tbar-l">
+      <select class="sel" onchange="filterByStage(this.value)"><option value="">All Stages</option><option>Planning</option><option>Development</option><option>Integration</option><option>SIT</option><option>UAT</option><option>Assurance</option><option>Pilot</option><option>Deployment</option><option>Live</option></select>
+      <select class="sel" onchange="filterByBU(this.value)"><option value="">All Business Units</option><option>Retail</option><option>DFS</option><option>Human Resources</option><option>CPC</option><option>Technology</option><option>Corporate Banking</option><option>Control/Fraud Team</option><option>Wholesale Digital Banking</option></select>
+      <select class="sel"><option>All PMs</option><option>Rita Ejim</option><option>Elohor Useh</option><option>Mohammed Salami</option><option>Samuel Akinde</option><option>Oluwaferanmi Oketope</option><option>Marvellous Oyekola</option><option>Emmanuel Ajao</option><option>Praise Itodo</option></select>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button class="btn-out" onclick="om('uploadPlanModal')">📊 Upload Plan</button>
+      <button class="btn-red" onclick="om('newProjModal')">+ New Project</button>
+    </div>
+  </div>
+  <div class="card" style="overflow-x:auto">
+  <table class="tbl" id="projTable">
+    <thead><tr><th>#</th><th>Project Name</th><th>Business Unit</th><th>PM</th><th>Stage</th><th>Progress</th><th>Health</th><th>Blocker</th><th>Go-Live</th><th></th></tr></thead>
+    <tbody id="projBody">
+    ${show.map(p=>`<tr onclick="openProject(${p.id})">
+      <td style="color:var(--txt3);font-size:12px">${p.sn}</td>
+      <td><strong style="font-size:13.5px">${p.name}</strong></td>
+      <td style="font-size:12px;color:var(--txt2)">${p.bu}</td>
+      <td><div class="mc"><div class="av sm">${p.pmAv}</div><span style="font-size:12.5px">${p.pm}</span></div></td>
+      <td><span class="badge ${p.stageCls}">${p.stage}</span></td>
+      <td><div class="pb-sm"><div style="width:${p.pct}%"></div></div><strong style="font-size:12px">${p.pct}%</strong></td>
+      <td><span class="hd ${p.health}"></span></td>
+      <td style="font-size:12px;max-width:200px;color:${p.blocker&&p.blocker!=='None.'?'var(--err)':'var(--txt3)'}">${p.blocker&&p.blocker!=='None.'?'⚠ '+p.blocker.substring(0,60)+(p.blocker.length>60?'…':''):'–'}</td>
+      <td style="font-weight:700;font-size:12.5px;color:${p.date==='TBD'?'var(--txt3)':'var(--ub-navy)'};white-space:nowrap">${p.date}</td>
+      <td><button class="btn-ghost" onclick="event.stopPropagation();openProject(${p.id})">View</button></td>
+    </tr>`).join('')}
+    </tbody>
+  </table></div></div>`;
+}
+
+/* ═══ PROJECT DETAIL ═══ */
+function openProject(id){
+  const p = PROJECTS.find(x=>x.id===id);
+  if(!p) return;
+  navigate('projectDetail');
+  document.getElementById('pgTitle').textContent = p.name;
+  document.getElementById('pgCrumb').textContent = 'Home / Projects / '+p.name.substring(0,30)+'…';
+
+  const area = document.getElementById('mainArea');
+  area.innerHTML = `<div class="sc on" style="padding:22px 26px">
+  <div style="display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--txt2);cursor:pointer;margin-bottom:16px" onclick="navigate('projects')">← Back to Projects</div>
+
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px;gap:14px;flex-wrap:wrap">
+    <div>
+      <div style="font-size:11px;color:var(--txt3);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Project #${p.sn} · ${p.bu}</div>
+      <div style="font-weight:800;font-size:20px;color:var(--ub-navy);margin-bottom:8px;letter-spacing:-.3px">${p.name}</div>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <span class="badge ${p.stageCls}">${p.stage}</span>
+        <span class="hd ${p.health}"></span>
+        <span style="font-size:13px;color:var(--txt2)">PM: <strong>${p.pm}</strong></span>
+        <span style="font-size:13px;color:var(--txt2)">Go-Live: <strong style="color:var(--ub-navy)">${p.date}</strong></span>
+        <span style="font-size:12px;font-family:monospace;background:var(--bg);padding:2px 8px;border-radius:4px;color:var(--ub-navy)">⚡ ${p.azure}</span>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;flex-shrink:0">
+      <button class="btn-out" onclick="om('uploadDocModal')">📁 Upload Doc</button>
+      <button class="btn-out" onclick="om('weeklyModal')">📧 Send Update</button>
+      <button class="btn-red" onclick="om('addTaskModal')">+ Add Task</button>
+    </div>
+  </div>
+
+  <!-- Stage Pipeline -->
+  <div class="card" style="margin-bottom:14px">
+    <div class="card-hdr"><span class="card-title" style="margin-bottom:0">Stage Gate Pipeline — Click a stage to check documents</span></div>
+    <div class="stage-pipe" id="stagePipe${p.id}">${buildStagePipe(p)}</div>
+    <div id="gateDocArea${p.id}" class="gate-docs h"></div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab-btn on" onclick="ptab('ov${p.id}',this)">Overview</button>
+    <button class="tab-btn" onclick="ptab('tasks${p.id}',this)">Tasks & SLA</button>
+    <button class="tab-btn" onclick="ptab('docs${p.id}',this)">Documents</button>
+    <button class="tab-btn" onclick="ptab('plan${p.id}',this)">Project Plan</button>
+    <button class="tab-btn" onclick="ptab('pipe${p.id}',this)">Azure Pipeline</button>
+    <button class="tab-btn" onclick="ptab('upd${p.id}',this)">Updates</button>
+  </div>
+
+  <!-- Overview -->
+  <div class="tab-pane on" id="tp-ov${p.id}">
+    <div class="g3" style="margin-bottom:14px">
+      <div class="card"><div style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--ub-red);margin-bottom:8px">✅ Achievements This Week</div><div style="font-size:12.5px;line-height:1.7;color:var(--txt)">${p.achieve}</div></div>
+      <div class="card"><div style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--info);margin-bottom:8px">📅 Next Steps</div><div style="font-size:12.5px;line-height:1.7;color:var(--txt)">${p.next}</div></div>
+      <div class="card" style="${p.blocker&&p.blocker!=='None.'?'border-color:#fca5a5':''}"><div style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:${p.blocker&&p.blocker!=='None.'?'var(--err)':'var(--ok)'};margin-bottom:8px">${p.blocker&&p.blocker!=='None.'?'⊘ Blockers / Issues':'✓ No Blockers'}</div><div style="font-size:12.5px;line-height:1.7;color:${p.blocker&&p.blocker!=='None.'?'var(--err)':'var(--txt2)'}">${p.blocker||'None reported'}</div></div>
+    </div>
+    <div class="g2">
+      <div class="card"><div class="card-title">Progress by Phase</div>
+        ${Object.entries(p.phases).map(([ph,pct])=>`<div class="phase-row">
+          <span class="ph-lbl" style="text-transform:capitalize">${ph==='dev'?'Development':ph==='sit'?'SIT':ph==='uat'?'UAT':ph.charAt(0).toUpperCase()+ph.slice(1)}</span>
+          <div class="ph-bar"><div class="ph-fill ${pct===100?'ok':''}" style="width:${pct}%"></div></div>
+          <span class="ph-pct">${pct}%</span>
+        </div>`).join('')}
+      </div>
+      <div class="card"><div class="card-title">Project Information</div>
+        <div class="info-rows">
+          <div class="ir"><span class="ir-lbl">Business Unit</span><span>${p.bu}</span></div>
+          <div class="ir"><span class="ir-lbl">Project Manager</span><div class="mc"><div class="av sm">${p.pmAv}</div>${p.pm}</div></div>
+          <div class="ir"><span class="ir-lbl">Current Stage</span><span class="badge ${p.stageCls}">${p.stage}</span></div>
+          <div class="ir"><span class="ir-lbl">Completion</span><span style="font-weight:800;color:var(--ub-navy)">${p.pct}%</span></div>
+          <div class="ir"><span class="ir-lbl">Go-Live Date</span><span style="font-weight:700">${p.date}</span></div>
+          <div class="ir"><span class="ir-lbl">Azure Repo</span><span style="font-family:monospace;font-size:12px;color:var(--ub-red)">${p.azure}</span></div>
+          <div class="ir"><span class="ir-lbl">Branch</span><span style="font-family:monospace;font-size:12px">${p.branch}</span></div>
+          <div class="ir"><span class="ir-lbl">Last Commit</span><span class="pipe-commit">${p.commit}</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tasks -->
+  <div class="tab-pane" id="tp-tasks${p.id}">
+    <div class="tbar" style="margin-bottom:14px"><div class="tbar-l"><select class="sel"><option>All Tasks</option><option>Overdue</option><option>Due Today</option><option>My Tasks</option></select><select class="sel"><option>All Priority</option><option>Critical</option><option>High</option><option>Medium</option></select></div><button class="btn-red sm" onclick="om('addTaskModal')">+ Add Task</button></div>
+    <div class="task-card over" onclick="om('addTaskModal')">
+      <div class="tc-top"><span class="tc-name">Deploy remediated build to server</span><span class="badge blocked">Critical</span></div>
+      <div class="tc-proj">${p.name} · ${p.stage}</div>
+      <div class="tc-meta"><span>👤 Dev Team</span><span>📅 Due: 28 Feb 2026</span><span style="color:var(--err);font-weight:700">SLA: BREACHED +3 days</span></div>
+      <div class="sla-track"><div class="sla-bar"><div class="sla-fill sla-err" style="width:100%"></div></div><div class="sla-labels"><span style="color:var(--err)">SLA Breached</span><span style="color:var(--err)">+3 days overdue</span></div></div>
+    </div>
+    <div class="task-card sla-w">
+      <div class="tc-top"><span class="tc-name">Complete SIT defect remediation</span><span class="badge sit">High</span></div>
+      <div class="tc-proj">${p.name} · SIT</div>
+      <div class="tc-meta"><span>👤 QA Team</span><span>📅 Due: 07 Mar 2026</span><span style="color:var(--warn)">SLA: 75% used — 3 days left</span></div>
+      <div class="sla-track"><div class="sla-bar"><div class="sla-fill sla-warn" style="width:75%"></div></div><div class="sla-labels"><span>75% elapsed</span><span>3 days remaining</span></div></div>
+    </div>
+    <div class="task-card ok2">
+      <div class="tc-top"><span class="tc-name">Deploy Union360 Web to QA test server</span><span class="badge dev">Medium</span></div>
+      <div class="tc-proj">${p.name} · Development</div>
+      <div class="tc-meta"><span>👤 Frontend Dev</span><span>📅 Due: 11 Mar 2026</span><span style="color:var(--ok)">SLA: 30% used — 9 days left</span></div>
+      <div class="sla-track"><div class="sla-bar"><div class="sla-fill sla-ok" style="width:30%"></div></div><div class="sla-labels"><span>30% elapsed</span><span>9 days remaining</span></div></div>
+    </div>
+  </div>
+
+  <!-- Documents -->
+  <div class="tab-pane" id="tp-docs${p.id}">
+    <div class="drop-zone" onclick="om('uploadDocModal')"><div class="dz-icon">📂</div><div class="dz-title">Click to upload or drag & drop</div><div class="dz-sub">Documents auto-tagged to project & stage · AES-256 encrypted · Version controlled</div></div>
+    <div class="doc-row"><span class="doc-icon">📄</span><div class="doc-inf"><div class="doc-nm">Integration Test Plan</div><div class="doc-mt">Uploaded by ${p.pm} · Feb 10, 2026 · Integration Stage · v1.0</div></div><span class="doc-st ok">✓ Approved</span><button class="btn-ghost" style="margin-left:8px">View</button></div>
+    <div class="doc-row"><span class="doc-icon">📊</span><div class="doc-inf"><div class="doc-nm">SIT Defect Log v2</div><div class="doc-mt">Uploaded by QA Team · Feb 20, 2026 · SIT Stage · v2.0</div></div><span class="doc-st ok">✓ Uploaded</span><button class="btn-ghost" style="margin-left:8px">View</button></div>
+    <div class="doc-row missing"><span class="doc-icon">⚠️</span><div class="doc-inf"><div class="doc-nm" style="color:var(--err)">Remediation Sign-off <span style="font-size:11.5px">(REQUIRED for gate)</span></div><div class="doc-mt">Required for ${p.stage} stage gate · Not yet uploaded</div></div><span class="doc-st miss">⊘ Missing</span><button class="btn-red sm" style="margin-left:8px" onclick="om('uploadDocModal')">Upload</button></div>
+  </div>
+
+  <!-- Plan -->
+  <div class="tab-pane" id="tp-plan${p.id}">
+    <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:14px 16px;margin-bottom:16px;font-size:13px;color:#1e40af">
+      <strong>📊 Excel Plan Tracking</strong> — Upload your project plan in Excel. Tasks, dates and milestones are extracted and tracked against actuals. SLA alerts fire automatically.
+      <div style="margin-top:8px;display:flex;gap:8px"><button class="btn-red sm" onclick="om('uploadPlanModal')">📤 Upload Plan</button><button class="btn-out" style="font-size:11.5px;padding:4px 10px">📥 Download Template</button></div>
+    </div>
+    <div class="card" style="overflow-x:auto"><table class="plan-tbl">
+      <thead><tr><th>#</th><th>Task / Milestone</th><th>Owner</th><th>Planned Start</th><th>Planned End</th><th>Actual Start</th><th>Actual End</th><th>%</th><th>Status</th><th>Variance</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Project Charter</td><td>${p.pm}</td><td>05-Jan</td><td>10-Jan</td><td>05-Jan</td><td>10-Jan</td><td>100%</td><td><span class="badge deploy">Complete</span></td><td class="var-ok">0</td></tr>
+        <tr><td>2</td><td>Requirements & Design</td><td>BA Team</td><td>11-Jan</td><td>25-Jan</td><td>11-Jan</td><td>27-Jan</td><td>100%</td><td><span class="badge deploy">Complete</span></td><td class="var-behind">+2 days</td></tr>
+        <tr class="behind"><td>3</td><td>${p.stage} — Active work</td><td>Dev/QA</td><td>15-Feb</td><td>21-Feb</td><td>15-Feb</td><td>–</td><td>${Math.min(p.pct,70)}%</td><td><span class="badge ${p.stageCls}">In Progress</span></td><td class="var-behind">+7 days</td></tr>
+        <tr class="blocked-r"><td>4</td><td>⊘ Blocked task</td><td>Dev Team</td><td>22-Feb</td><td>24-Feb</td><td>22-Feb</td><td>–</td><td>0%</td><td><span class="badge blocked">Blocked</span></td><td class="var-behind">BLOCKED</td></tr>
+        <tr><td>★</td><td style="font-weight:800;color:var(--ub-red)">GO-LIVE TARGET</td><td>${p.pm}</td><td colspan="2" style="font-weight:700;color:var(--ub-red)">${p.date}</td><td>–</td><td>–</td><td>–</td><td><span class="badge plan">Pending</span></td><td class="var-warn">At Risk</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <!-- Azure Pipeline -->
+  <div class="tab-pane" id="tp-pipe${p.id}">
+    ${renderProjectPipeline(p)}
+  </div>
+
+  <!-- Updates -->
+  <div class="tab-pane" id="tp-upd${p.id}">
+    <button class="btn-red sm" style="margin-bottom:14px" onclick="om('weeklyModal')">📧 Send Weekly Update</button>
+    <div class="email-preview">
+      <div class="ep-hdr"><div class="ep-hdr-logo">UB</div><div class="ep-hdr-txt"><div class="ep-hdr-title">Weekly Project Status — ${p.name}</div><div class="ep-hdr-sub">Week of 24 Feb 2026 · ${p.pm} · IT PMO Union Bank Nigeria</div></div></div>
+      <div class="ep-body">
+        <div class="ep-sec"><div class="ep-sec-title">Summary</div>
+          <div class="ep-row"><div class="ep-lbl">Stage</div><div class="ep-val"><span class="badge ${p.stageCls}">${p.stage}</span></div></div>
+          <div class="ep-row"><div class="ep-lbl">Completion</div><div class="ep-val"><strong>${p.pct}%</strong></div></div>
+          <div class="ep-row"><div class="ep-lbl">Go-Live Target</div><div class="ep-val"><strong>${p.date}</strong></div></div>
+        </div>
+        <div class="ep-sec"><div class="ep-sec-title">Achievements</div><div class="ep-row"><div class="ep-lbl">This Week</div><div class="ep-val">${p.achieve}</div></div></div>
+        <div class="ep-sec"><div class="ep-sec-title">Next Steps</div><div class="ep-row"><div class="ep-lbl">Next Week</div><div class="ep-val">${p.next}</div></div></div>
+        ${p.blocker&&p.blocker!=='None.'?`<div class="ep-sec"><div class="ep-sec-title" style="color:var(--err)">⊘ Blockers</div><div class="ep-blocker-row"><div class="ep-blocker-lbl">Action Required</div>${p.blocker}</div></div>`:''}
+      </div>
+    </div>
+  </div>
+  </div>`;
+
+  // Tab switching within project detail
+  document.querySelectorAll(`[id^="tp-"][id*="${p.id}"]`).forEach(tp=>{
+    tp.querySelectorAll('.tab-btn').forEach(tb=>{
+      tb.addEventListener('click',function(){ ptab(this.getAttribute('onclick').match(/'([^']+)'/)[1],this); });
+    });
+  });
+}
+
+function ptab(id,btn){
+  const pre = id.replace(/\d+$/,'');
+  const suffix = id.match(/\d+$/)[0];
+  document.querySelectorAll(`[id^="tp-"][id$="${suffix}"]`).forEach(t=>t.classList.remove('on'));
+  document.querySelectorAll(`[id^="tp-"][id$="${suffix}"]`).forEach(t=>t.closest('.sc')?.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('on')));
+  document.getElementById('tp-'+id)?.classList.add('on');
+  if(btn) btn.classList.add('on');
+}
+
+/* ═══ STAGE PIPELINE ═══ */
+const STAGES = ['Planning','Development','Integration','SIT','Assurance','UAT','Security Review','CCB','Pilot','Deployment','Go-Live'];
+function buildStagePipe(p){
+  const stageMap = {Planning:0,Development:1,Integration:2,SIT:3,Assurance:4,UAT:5,'Security Review':6,CCB:7,Pilot:8,Deployment:9,'Go-Live':10,'Multi-stage':5};
+  const activeIdx = stageMap[p.stage]||2;
+  return STAGES.map((s,i)=>`
+    <div class="sp-node" onclick="showGateDocs(${p.id},'${s}')">
+      <div class="sp-circle ${i<activeIdx?'done':i===activeIdx?'active':'locked'}">
+        ${i<activeIdx?'✓':i+1}
+        ${i===activeIdx&&p.health==='r'?'<span class="sp-badge err">!</span>':i<activeIdx?'<span class="sp-badge ok">✓</span>':''}
+      </div>
+      <div class="sp-lbl ${i===activeIdx?'active':''}">${s}</div>
+    </div>
+    ${i<STAGES.length-1?'<div class="sp-arr">›</div>':''}`).join('');
+}
+
+function showGateDocs(projId, stage){
+  const docs = GATE_DOCS[stage]||GATE_DOCS['Planning'];
+  const area = document.getElementById('gateDocArea'+projId);
+  if(!area) return;
+  const missing = docs.filter(d=>!d.done).length;
+  area.classList.remove('h');
+  area.innerHTML = `<div class="gd-title">📋 ${stage} Stage Gate — Required Documents ${missing>0?`<span style="background:#fef2f2;color:var(--err);padding:2px 8px;border-radius:4px;font-size:11px">${missing} missing</span>`:''}</div>
+  <div class="gd-item" style="font-size:11px;color:var(--txt3);padding:0 0 8px;border-bottom:1px solid var(--bdr)">All documents must be uploaded and approved before advancing to the next stage gate.</div>
+  ${docs.map(d=>`<div class="gd-item">
+    <div class="gd-chk ${d.done?'done':'miss'}">${d.done?'✓':'!'}</div>
+    <span class="gd-name">${d.n}</span>
+    ${d.done?'<span style="font-size:11.5px;color:var(--ok)">✓ Uploaded</span>':'<span class="gd-upload-link" onclick="om(\'uploadDocModal\')">Upload now ↑</span>'}
+  </div>`).join('')}
+  <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--bdr);font-size:12.5px;color:${missing>0?'var(--err)':'var(--ok)'}">
+    ${missing>0?`⚠ ${missing} required document(s) missing — cannot advance stage gate until uploaded`:'✓ All documents uploaded — this gate can be approved'}
+  </div>`;
+}
+
+/* ═══ PIPELINE RENDERS ═══ */
+function renderProjectPipeline(p){
+  const stagesMap = {done:'done',run:'run',fail:'fail',wait:'wait'};
+  const pipeConfigs = {
+    done: {stages:['Build','Dev','SIT','UAT','Prod'], states:['done','done','done','done','done'], msg:'✅ All pipeline stages passed. Pilot active.', cls:'ok'},
+    run:  {stages:['Build','Dev','SIT','UAT','Prod'], states:['done','done','done','done','run'],  msg:'⟳ Deployment to Production running.', cls:'run'},
+    fail: {stages:['Build','Dev','SIT','QA','Prod'],  states:['done','done','done','fail','wait'], msg:'✕ Pipeline failed at QA gate — '+p.blocker, cls:'fail'},
+    wait: {stages:['Build','Dev','SIT','UAT','Prod'], states:['done','done','wait','wait','wait'], msg:'⟳ Development in progress — pipeline not yet triggered.', cls:'run'},
+  };
+  const cfg = pipeConfigs[p.pipeStatus]||pipeConfigs['run'];
+  const icons = {done:'✓',run:'⟳',fail:'✕',wait:'○'};
+  return `<div class="sec-panel">
+    <div class="sec-hd">⚡ Azure DevOps — ${p.azure}</div>
+    <div class="info-rows" style="margin-bottom:14px">
+      <div class="sec-row"><span>Repository</span><span class="sec-val" style="font-family:monospace">${p.azure}</span></div>
+      <div class="sec-row"><span>Branch</span><span class="sec-val" style="font-family:monospace">${p.branch}</span></div>
+      <div class="sec-row"><span>Last Commit</span><span class="sec-val"><span class="pipe-commit">${p.commit}</span></span></div>
+      <div class="sec-row"><span>Connection</span><span class="sec-val ok">TLS 1.3 · Mutual Auth · Internal Network</span></div>
+      <div class="sec-row"><span>Access</span><span class="sec-val ok">Azure AD SSO · Role-based (RBAC)</span></div>
+    </div>
+    <div style="font-size:12px;color:rgba(255,255,255,.6);margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:.5px">Deployment Pipeline</div>
+    <div class="pipe-stages" style="flex-wrap:wrap">
+      ${cfg.stages.map((s,i)=>`<span class="ps ${cfg.states[i]}">${icons[cfg.states[i]]} ${s}</span>${i<cfg.stages.length-1?'<span class="ps-arr">›</span>':''}`).join('')}
+    </div>
+    <div class="pipe-status ${cfg.cls}" style="margin-top:12px">${cfg.msg}</div>
+  </div>`;
+}
+
+function renderAzurePipelines(limited){
+  const show = limited ? PROJECTS.filter(p=>['pm','pm2'].includes(currentRole)?ROLES[currentRole].myProjects?.includes(PROJECTS.indexOf(p)):true).slice(0,4) : PROJECTS;
+  return show.map(p=>{
+    const icons={done:'✓',run:'⟳',fail:'✕',wait:'○'};
+    const stateClsMap={done:'done',run:'run',fail:'fail',wait:'wait'};
+    const pipeMap={
+      done:{s:['done','done','done','done','done']},
+      run: {s:['done','done','done','done','run']},
+      fail:{s:['done','done','done','fail','wait']},
+      wait:{s:['done','done','wait','wait','wait']},
+    };
+    const cfg = pipeMap[p.pipeStatus]||pipeMap['run'];
+    const stages=['Build','Dev','SIT/UAT','QA','Prod'];
+    return `<div class="pipe-card">
+      <div class="pipe-top">
+        <div><div class="pipe-name">${p.name}</div><div class="pipe-meta">${p.azure} · <span class="pipe-commit">${p.commit}</span> · ${p.branch}</div></div>
+        <div class="pipe-stages">
+          ${stages.map((s,i)=>`<span class="ps ${cfg.s[i]}">${icons[cfg.s[i]]} ${s}</span>${i<stages.length-1?'<span class="ps-arr">›</span>':''}`).join('')}
+        </div>
+      </div>
+      <div class="pipe-status ${p.pipeStatus==='fail'?'fail':p.pipeStatus==='done'?'ok':'run'}">${p.pipeMsg}</div>
+    </div>`;
+  }).join('');
+}
+
+/* ═══ OTHER PAGES ═══ */
+function renderMyTasks(){
+  return `<div class="sc on" style="padding:22px 26px">
+  <div class="kpi-row">
+    <div class="kpi red"><div class="kpi-lbl">Total Tasks</div><div class="kpi-val">18</div></div>
+    <div class="kpi red"><div class="kpi-lbl">Overdue</div><div class="kpi-val" style="color:var(--err)">3</div><div class="kpi-sub">SLA breached</div></div>
+    <div class="kpi warn"><div class="kpi-lbl">Due Today</div><div class="kpi-val" style="color:var(--warn)">4</div></div>
+    <div class="kpi green"><div class="kpi-lbl">On Track</div><div class="kpi-val" style="color:var(--ok)">11</div></div>
+  </div>
+  <div class="tbar"><div class="tbar-l"><select class="sel"><option>All Projects</option></select><select class="sel"><option>All SLA Status</option><option>Overdue</option><option>At Risk</option><option>On Track</option></select></div><button class="btn-red" onclick="om('addTaskModal')">+ Add Task</button></div>
+  ${[{n:'Deploy remediated build — Digital Lending',p:'Digital Lending · #1',due:'28 Feb',cls:'over',sla:100,msg:'BREACHED +3 days',t:'err'},{n:'Submit Weekly Status Report',p:'All Projects',due:'Today',cls:'sla-w',sla:90,msg:'Due EOD today',t:'warn'},{n:'Xceed365 — Infosec exception remediation',p:'Xceed365 · #2',due:'05 Mar',cls:'sla-w',sla:80,msg:'80% of SLA used',t:'warn'},{n:'Complete Union360 Web encrypted build',p:'Digital Lending · Union360',due:'11 Mar',cls:'ok2',sla:35,msg:'35% elapsed · 9 days left',t:'ok'},{n:'ERP Rebuild — Coordinate UAT session',p:'ERP Rebuild · #3',due:'10 Mar',cls:'ok2',sla:25,msg:'25% elapsed · 12 days left',t:'ok'}].map(t=>`
+  <div class="task-card ${t.cls}" onclick="om('addTaskModal')">
+    <div class="tc-top"><span class="tc-name">${t.n}</span><span style="font-size:11.5px;color:var(--${t.t});font-weight:700">${t.msg}</span></div>
+    <div class="tc-proj">${t.p}</div>
+    <div class="tc-meta"><span>📅 Due: ${t.due}</span></div>
+    <div class="sla-track"><div class="sla-bar"><div class="sla-fill sla-${t.t}" style="width:${t.sla}%"></div></div><div class="sla-labels"><span>${t.sla}% of SLA elapsed</span></div></div>
+  </div>`).join('')}
+  </div>`;
+}
+
+function renderQAWork(){
+  return `<div class="sc on" style="padding:22px 26px">
+  ${renderRoleBanner()}
+  <div class="kpi-row">
+    <div class="kpi blue"><div class="kpi-lbl">Test Cases Assigned</div><div class="kpi-val">47</div></div>
+    <div class="kpi red"><div class="kpi-lbl">Open Defects</div><div class="kpi-val" style="color:var(--err)">23</div></div>
+    <div class="kpi warn"><div class="kpi-lbl">SLA Warnings</div><div class="kpi-val" style="color:var(--warn)">6</div></div>
+    <div class="kpi green"><div class="kpi-lbl">Pass Rate</div><div class="kpi-val" style="color:var(--ok)">79%</div></div>
+  </div>
+  <div class="g2">
+    <div class="card"><div class="card-title">🧪 My Test Queue — This Sprint</div>
+    ${[{p:'ERP Rebuild',t:'GL Module — UAT Test Cases (15)',s:'uat',st:'In Progress'},{p:'Account Maintenance',t:'Phase 1 UAT — Business Test Session',s:'uat',st:'In Progress'},{p:'Paygilant M36',t:'QA Regression Test Suite',s:'uat',st:'In Progress'},{p:'Free Banking Payroll',t:'SIT Test Cases — Vulnerability check',s:'sit',st:'Pending'},{p:'Union360 2.0 Mobile',t:'QA Security Test — Known dependencies',s:'sit',st:'Blocked'}].map(x=>`
+    <div style="display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid #f1f5f9;font-size:13px">
+      <div style="flex:1"><div style="font-weight:600">${x.p}</div><div style="color:var(--txt2);font-size:12px">${x.t}</div></div>
+      <span class="badge ${x.s}">${x.st}</span>
+    </div>`).join('')}
+    </div>
+    <div class="card"><div class="card-title">🔴 Defects to Retest</div>
+    ${[{p:'Paygilant M36',d:'App crash on saved beneficiary tx',sev:'HIGH',age:'3d'},{p:'Omnichannel',d:'AOBBS login integration failure',sev:'CRIT',age:'5d'},{p:'Credit Card NI',d:'Null response from NI endpoint',sev:'HIGH',age:'2d'},{p:'Account Maint.',d:'FCUBS error blocking UAT session',sev:'MED',age:'1d'},{p:'Turbo App',d:'AOBBS account creation error',sev:'CRIT',age:'4d'}].map(x=>`
+    <div style="display:flex;gap:8px;padding:9px 0;border-bottom:1px solid #f1f5f9;font-size:12.5px;align-items:flex-start">
+      <span style="background:${x.sev==='CRIT'?'#fef2f2':x.sev==='HIGH'?'#fffbeb':'#f0fdf4'};color:${x.sev==='CRIT'?'var(--err)':x.sev==='HIGH'?'var(--warn)':'var(--ok)'};padding:2px 6px;border-radius:4px;font-size:10px;font-weight:700;flex-shrink:0">${x.sev}</span>
+      <div style="flex:1"><div style="font-weight:600">${x.p}</div><div style="color:var(--txt2)">${x.d}</div></div>
+      <span style="font-size:11px;color:var(--txt3)">${x.age} ago</span>
+    </div>`).join('')}
+    </div>
+  </div></div>`;
+}
+
+function renderStageGates(){
+  return `<div class="sc on" style="padding:22px 26px">
+  <div class="card" style="margin-bottom:16px">
+    <div class="card-title">Stage Gate Framework — Union Bank IT Project Lifecycle</div>
+    <div style="font-size:12.5px;color:var(--txt2);margin-bottom:16px;line-height:1.6">Projects must satisfy all document requirements at each stage before advancing. Gate owners must approve the gate document checklist. Projects without mandatory documents are blocked from advancing.</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px">
+    ${Object.entries(GATE_DOCS).map(([stage,docs])=>`
+    <div style="background:var(--bg);border:1px solid var(--bdr);border-radius:9px;padding:13px">
+      <div style="font-weight:800;font-size:12.5px;color:var(--ub-navy);margin-bottom:8px">${stage}</div>
+      ${docs.map(d=>`<div style="display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--txt2);margin-bottom:4px">
+        <span style="color:${d.done?'var(--ok)':'var(--err)'}">${d.done?'✓':'○'}</span>${d.n}
+      </div>`).join('')}
+    </div>`).join('')}
+    </div>
+  </div>
+  <div class="sec-hdr"><div class="sec-title">Projects Pending Gate Approval</div></div>
+  <div class="card" style="overflow-x:auto">
+  <table class="tbl">
+    <thead><tr><th>Project</th><th>PM</th><th>Stage</th><th>Docs Status</th><th>Missing</th><th>Action</th></tr></thead>
+    <tbody>
+    ${[{n:'Digital Lending',pm:'RE Rita Ejim',s:'Integration',sc:'int',ok:false,miss:'Remediation Sign-off, Integration Certificate'},{n:'ERP Rebuild',pm:'SA Samuel Akinde',s:'UAT',sc:'uat',ok:false,miss:'Business Concurrence, UAT Certificate'},{n:'Paygilant Cards',pm:'PI Praise Itodo',s:'Pilot',sc:'pilot',ok:true,miss:'—'},{n:'Legal Search',pm:'MS Mohammed Salami',s:'Deployment',sc:'deploy',ok:true,miss:'Business feedback pending'},{n:'UnionDirect',pm:'EU Elohor Useh',s:'Pilot',sc:'pilot',ok:false,miss:'Security clearance (DB creds issue)'}].map(x=>`
+    <tr>
+      <td><strong>${x.n}</strong></td>
+      <td><div class="mc"><div class="av sm">${x.pm.substring(0,2)}</div>${x.pm.substring(3)}</div></td>
+      <td><span class="badge ${x.sc}">${x.s}</span></td>
+      <td><span style="font-size:12.5px;font-weight:600;color:${x.ok?'var(--ok)':'var(--err)'}">${x.ok?'✓ All docs uploaded':'⊘ Documents missing'}</span></td>
+      <td style="font-size:12px;color:${x.ok?'var(--ok)':'var(--err)'}">${x.miss}</td>
+      <td>${x.ok?`<button class="btn-red sm">Approve Gate</button>`:`<button class="btn-ghost" onclick="om('uploadDocModal')">Upload Docs</button>`}</td>
+    </tr>`).join('')}
+    </tbody>
+  </table></div></div>`;
+}
+
+function renderDocuments(){
+  return `<div class="sc on" style="padding:22px 26px">
+  <div class="tbar"><div class="tbar-l"><select class="sel"><option>All Projects</option>${PROJECTS.map(p=>`<option>${p.name.substring(0,40)}</option>`).join('')}</select><select class="sel"><option>All Doc Types</option><option>Charter</option><option>Test Plan</option><option>Defect Log</option><option>Sign-off</option><option>CCB Memo</option><option>Infosec Report</option></select><select class="sel"><option>All Stages</option><option>Planning</option><option>SIT</option><option>UAT</option><option>CCB</option></select></div><button class="btn-red" onclick="om('uploadDocModal')">↑ Upload Document</button></div>
+  <div class="drop-zone" onclick="om('uploadDocModal')"><div class="dz-icon">📂</div><div class="dz-title">Drop files here or click to upload</div><div class="dz-sub">All documents are AES-256 encrypted · Role-restricted access · Auto-tagged to project & stage · Version controlled</div></div>
+  ${[{ic:'📄',n:'Integration Test Plan — Digital Lending',m:'Rita Ejim · Feb 10 · Integration · v1.0',s:'ok',st:'✓ Required & Uploaded'},{ic:'✅',n:'Xceed365 — Infosec Review Report',m:'Rita Ejim · Feb 15 · Security · v1.0',s:'ok',st:'✓ Approved'},{ic:'🧪',n:'ERP Rebuild — UAT Test Cases (GL & Budget)',m:'Samuel Akinde · Feb 18 · UAT · v2.0',s:'ok',st:'✓ Uploaded'},{ic:'📊',n:'UnionDirect — Security Review Evidence',m:'Elohor Useh · Feb 22 · Security · v1.0',s:'rev',st:'⏳ Under Review'},{ic:'✅',n:'Paygilant Cards — CCB Approval Memo',m:'Praise Itodo · Feb 23 · CCB · v1.0',s:'ok',st:'✓ Approved'},{ic:'⚠️',n:'Digital Lending — Remediation Sign-off (REQUIRED)',m:'Required for Integration gate · Not uploaded',s:'miss',st:'⊘ Missing — Blocking'}].map(d=>`
+  <div class="doc-row ${d.s==='miss'?'missing':''}">
+    <span class="doc-icon">${d.ic}</span>
+    <div class="doc-inf"><div class="doc-nm">${d.n}</div><div class="doc-mt">${d.m}</div></div>
+    <span class="doc-st ${d.s}">${d.st}</span>
+    ${d.s==='miss'?`<button class="btn-red sm" onclick="om('uploadDocModal')">Upload</button>`:`<button class="btn-ghost">View</button>`}
+  </div>`).join('')}
+  </div>`;
+}
+
+function renderPlanPage(){
+  return `<div class="sc on" style="padding:22px 26px">
+  <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:18px 20px;margin-bottom:18px">
+    <div style="font-weight:800;font-size:15px;color:var(--ub-navy);margin-bottom:6px">📊 Excel Project Plan — Upload & Tracking</div>
+    <div style="font-size:12.5px;color:var(--txt2);line-height:1.7;margin-bottom:12px">Upload your project plan in Excel format. The system extracts all tasks, milestones, dates and assigns SLA tracking. You receive daily email alerts when tasks fall behind. Actuals are tracked against your baseline plan automatically.</div>
+    <div style="display:flex;gap:9px;flex-wrap:wrap"><button class="btn-red" onclick="om('uploadPlanModal')">📤 Upload Project Plan (Excel)</button><button class="btn-out">📥 Download Template</button><button class="btn-out">🔄 Sync with Azure DevOps Tasks</button></div>
+  </div>
+  <div class="tbar"><div class="tbar-l"><select class="sel"><option>Digital Lending — PRJ-001</option><option>Xceed365 — PRJ-002</option><option>ERP Rebuild — PRJ-003</option><option>SME Hub — PRJ-004</option></select><select class="sel"><option>All Tasks</option><option>Behind Schedule</option><option>On Track</option><option>Completed</option><option>Blocked</option></select></div></div>
+  <div class="card" style="overflow-x:auto">
+  <table class="plan-tbl">
+    <thead><tr><th>#</th><th>Task / Milestone</th><th>Owner</th><th>Planned Start</th><th>Planned End</th><th>Actual Start</th><th>Actual End</th><th>%</th><th>Status</th><th>SLA</th><th>Variance</th></tr></thead>
+    <tbody>
+    ${[
+      [1,'Project Charter & Kickoff','Rita Ejim','05-Jan','10-Jan','05-Jan','10-Jan','100%','deploy','ok','0 days'],
+      [2,'Requirements & Design','BA Team','11-Jan','25-Jan','11-Jan','27-Jan','100%','deploy','warn','+2 days'],
+      [3,'Backend Development','Dev Team','28-Jan','14-Feb','28-Jan','14-Feb','100%','deploy','ok','0 days'],
+      [4,'Integration — Union Online','Dev Team','15-Feb','21-Feb','15-Feb','–','70%','int','over','+7 days'],
+      [5,'Deploy remediated build ⚠','Alex Dev','22-Feb','24-Feb','22-Feb','–','0%','blocked','over','BLOCKED'],
+      [6,'SIT — Union Online','QA Team','25-Feb','03-Mar','–','–','0%','plan','warn','Delayed'],
+      [7,'Assurance Testing','Assurance','04-Mar','12-Mar','–','–','0%','plan','ok','On track'],
+      [8,'UAT & Business Sign-off','Business','13-Mar','22-Mar','–','–','0%','plan','ok','On track'],
+      ['★','🔴 GO-LIVE TARGET','Rita Ejim','31-Mar-2026','31-Mar-2026','–','–','–','plan','–','At Risk'],
+    ].map(([n,t,o,ps,pe,as,ae,pct,sc,slac,v])=>`
+    <tr class="${sc==='blocked'?'blocked-r':sc==='int'?'behind':''}">
+      <td style="color:var(--txt3);font-size:12px">${n}</td>
+      <td ${n==='★'?'style="font-weight:800;color:var(--ub-red)"':''}>${t}</td>
+      <td style="font-size:12px">${o}</td>
+      <td style="font-size:12px">${ps}</td><td style="font-size:12px">${pe}</td>
+      <td style="font-size:12px">${as}</td><td style="font-size:12px">${ae}</td>
+      <td style="font-weight:700">${pct}</td>
+      <td><span class="badge ${sc}">${sc==='deploy'?'Done':sc==='int'?'Active':sc==='plan'?'Planned':sc==='blocked'?'Blocked':'–'}</span></td>
+      <td><span style="background:${slac==='ok'?'#dcfce7':slac==='warn'?'#fefce8':slac==='over'?'#fef2f2':'var(--bg)'};color:${slac==='ok'?'var(--ok)':slac==='warn'?'var(--warn)':slac==='over'?'var(--err)':'var(--txt3)'};padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700">${slac==='ok'?'✓ Met':slac==='warn'?'⚠ Risk':slac==='over'?'Breach':'–'}</span></td>
+      <td class="${v.includes('+')||v==='BLOCKED'?'var-behind':v==='On track'||v==='0 days'?'var-ok':'var-warn'}" style="color:${v.includes('+')||v==='BLOCKED'?'var(--err)':v==='On track'||v==='0 days'?'var(--ok)':'var(--warn)'};font-weight:700">${v}</td>
+    </tr>`).join('')}
+    </tbody>
+  </table></div></div>`;
+}
+
+function renderAzure(){
+  return `<div class="sc on" style="padding:22px 26px">
+  <div class="sec-panel" style="margin-bottom:18px">
+    <div class="sec-hd">⚡ Azure DevOps — Integration & Security Status</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
+      ${[['Connection','TLS 1.3 + Mutual Auth · Active','ok'],['Auth Method','Azure AD SSO · Service Principal','ok'],['Network','Internal VNet · No public exposure','ok'],['RBAC','Role-based access enforced','ok'],['Audit Log','All pipeline events logged','ok'],['Code Scan','SonarQube + OWASP · Running','warn']].map(([l,v,c])=>`
+      <div class="sec-row"><span style="color:rgba(255,255,255,.6)">${l}</span><span class="sec-val ${c}">${v}</span></div>`).join('')}
+    </div>
+  </div>
+  <div class="sec-hdr"><div class="sec-title">All Project Pipelines</div><button class="btn-ghost" onclick="toast('Azure DevOps portal opened in new tab','ok')">Open Azure Portal ↗</button></div>
+  ${renderAzurePipelines(false)}
+  </div>`;
+}
+
+function renderUpdates(){
+  return `<div class="sc on" style="padding:22px 26px">
+  <div class="tbar"><div class="tbar-l"><select class="sel"><option>Week of 24 Feb 2026</option><option>Week of 17 Feb 2026</option></select><select class="sel"><option>All Projects</option><option>My Projects</option></select></div><button class="btn-red" onclick="om('weeklyModal')">📧 Send Weekly Update</button></div>
+  <div class="g2" style="margin-bottom:16px">
+    <div class="card"><div class="card-title">Submission Status — This Week</div>
+    ${[['RE','Rita Ejim','2 projects','ok'],['EU','Elohor Useh','5 projects','ok'],['SA','Samuel Akinde','1 project','ok'],['MS','Mohammed Salami','2 projects','warn'],['EA','Emmanuel Ajao','2 projects','warn'],['FO','Oluwaferanmi Oketope','2 projects','warn'],['MO','Marvellous Oyekola','2 projects','warn'],['PI','Praise Itodo','1 project','ok']].map(([av,name,np,s])=>`
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid #f1f5f9;font-size:13px">
+      <div class="mc"><div class="av sm">${av}</div> ${name} <span style="font-size:11px;color:var(--txt3)">(${np})</span></div>
+      <span style="background:${s==='ok'?'#dcfce7':'#fefce8'};color:${s==='ok'?'var(--ok)':'var(--warn)'};padding:2px 9px;border-radius:4px;font-size:11.5px;font-weight:700">${s==='ok'?'✓ Submitted':'⚠ Pending'}</span>
+    </div>`).join('')}
+    </div>
+    <div class="card"><div class="card-title">Auto-distribution List</div>
+    <div style="font-size:12.5px;color:var(--txt2);margin-bottom:12px">Weekly report is auto-sent every Friday 5PM to:</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px">
+      ${['MD / CEO Office','Chief Technology Officer','IT Steering Committee','Business Owners','Risk & Compliance','Internal Audit'].map(r=>`<span class="recip-pill">${r}</span>`).join('')}
+    </div>
+    <div style="display:flex;gap:8px;margin-top:4px"><button class="btn-red" onclick="toast('Portfolio report sent to all stakeholders! 📧','ok')">📧 Send Portfolio Report</button><button class="btn-out">👁 Preview</button></div>
+    </div>
+  </div>
+  <!-- Portfolio email preview -->
+  <div class="email-preview">
+    <div class="ep-hdr"><div class="ep-hdr-logo">UB</div><div class="ep-hdr-txt"><div class="ep-hdr-title">Union Bank Nigeria IT — Weekly Project Status Report</div><div class="ep-hdr-sub">Week of 24 February 2026 · Compiled by IT PMO · 18 Active Projects · Confidential</div></div></div>
+    <div class="ep-body">
+      <div class="ep-sec"><div class="ep-sec-title">Executive Summary</div>
+        <div class="ep-row"><div class="ep-lbl">Portfolio Size</div><div class="ep-val">18 active projects across 8 business units</div></div>
+        <div class="ep-row"><div class="ep-lbl">On Track</div><div class="ep-val" style="color:var(--ok);font-weight:600">7 projects (39%)</div></div>
+        <div class="ep-row"><div class="ep-lbl">At Risk</div><div class="ep-val" style="color:var(--warn);font-weight:600">8 projects (44%) — monitoring required</div></div>
+        <div class="ep-row"><div class="ep-lbl">Blocked</div><div class="ep-val" style="color:var(--err);font-weight:600">3 projects (17%) — escalation required</div></div>
+        <div class="ep-row"><div class="ep-lbl">Near Go-Live</div><div class="ep-val" style="color:var(--warn)">5 projects going live in March (2 overdue)</div></div>
+      </div>
+      <div class="ep-sec"><div class="ep-sec-title">Critical Escalations Requiring Executive Attention</div>
+        <div class="ep-blocker-row"><div class="ep-blocker-lbl">Digital Lending — Rita Ejim</div>Weblogic service unavailable on port 7002. Remediated build cannot be deployed. Escalated to Head, Engineering. Go-Live 31-Mar at risk.</div>
+        <div class="ep-blocker-row"><div class="ep-blocker-lbl">UnionDirect — Elohor Useh</div>DB credentials stored in clear text — SECURITY RISK. Infosec team must review before go-live. GL Fee configuration impacting card transactions.</div>
+        <div class="ep-blocker-row" style="background:#fffbeb;border-color:#fde68a"><div class="ep-blocker-lbl" style="color:var(--warn)">Union Collect Revamp — Marvellous Oyekola</div>NBL & Remita Infosec review stalled 3+ weeks. Dangote network connectivity unresolved. Xpresspay internal network issue pending IT resolution.</div>
+      </div>
+    </div>
+  </div>
+  </div>`;
+}
+
+function renderStakeholders(){
+  return `<div class="sc on" style="padding:22px 26px">
+  <div class="card" style="overflow-x:auto">
+    <div class="card-title">Stakeholder Communication Matrix</div>
+    <table class="tbl">
+      <thead><tr><th>Stakeholder</th><th>Role</th><th>Projects</th><th>Frequency</th><th>Channel</th><th>Status</th></tr></thead>
+      <tbody>
+      ${[['MD / CEO Office','Executive Sponsor','All Portfolio','Weekly Summary','Email Report','Active'],['Chief Technology Officer','Technology Lead','All IT Projects','Weekly + Alerts','Email + Teams','Active'],['IT Steering Committee','Governance','All','Weekly','Email Report','Active'],['Business Unit Heads','Sponsors','Assigned','Weekly','Email','Active'],['Infosec / IT Control','Security Review','All','On Trigger','Email Alert','Active'],['Internal Audit','Oversight','All','Monthly','Report','Active']].map(([s,r,p,f,m,st])=>`
+      <tr><td><strong>${s}</strong></td><td style="font-size:12.5px;color:var(--txt2)">${r}</td><td style="font-size:12px">${p}</td><td style="font-size:12px">${f}</td><td style="font-size:12px">${m}</td><td><span class="badge deploy">● ${st}</span></td></tr>`).join('')}
+      </tbody>
+    </table>
+  </div></div>`;
+}
+
+function renderSecurity(){
+  return `<div class="sc on" style="padding:22px 26px">
+  <div class="kpi-row">
+    <div class="kpi green"><div class="kpi-lbl">Systems Secured</div><div class="kpi-val" style="color:var(--ok)">15</div></div>
+    <div class="kpi red"><div class="kpi-lbl">Security Risks</div><div class="kpi-val" style="color:var(--err)">3</div><div class="kpi-sub">Requires action</div></div>
+    <div class="kpi warn"><div class="kpi-lbl">Infosec Pending</div><div class="kpi-val" style="color:var(--warn)">6</div></div>
+    <div class="kpi green"><div class="kpi-lbl">SSL / TLS Status</div><div class="kpi-val" style="font-size:16px;color:var(--ok)">TLS 1.3</div></div>
+  </div>
+  <div class="g2">
+    <div class="sec-panel"><div class="sec-hd">🔒 Infrastructure Security</div>
+    ${[['Portal Authentication','Azure AD SSO + MFA','ok'],['Data Encryption (rest)','AES-256','ok'],['Data Encryption (transit)','TLS 1.3','ok'],['Network','Internal VNet + WAF','ok'],['API Gateway','Mutual TLS + OAuth 2.0','ok'],['Audit Logging','Azure Monitor · All events','ok'],['Session Timeout','15 min inactivity','ok'],['Access Control','RBAC enforced','ok']].map(([l,v,c])=>`
+    <div class="sec-row"><span style="color:rgba(255,255,255,.65)">${l}</span><span class="sec-val ${c}">${v}</span></div>`).join('')}
+    </div>
+    <div class="sec-panel"><div class="sec-hd">⚠ Open Security Risks — Projects</div>
+    ${[{p:'UnionDirect',r:'DB credentials in clear text',sev:'CRITICAL',act:'Infosec team remediation required'},
+       {p:'Digital Lending',r:'Weblogic exposure on port 7002',sev:'HIGH',act:'Port secured after patch'},
+       {p:'Paygilant Mobile',r:'Android privacy permission overreach',sev:'MEDIUM',act:'Playstore policy review ongoing'},
+       {p:'Union360 2.0 Mobile',r:'QA security test dependencies unresolved',sev:'MEDIUM',act:'Dependencies being mapped'},
+       {p:'Free Banking Payroll',r:'Vulnerability scan — closure pending',sev:'MEDIUM',act:'Vuln list being remediated'}].map(x=>`
+    <div style="padding:9px 0;border-bottom:1px solid rgba(255,255,255,.07)">
+      <div style="display:flex;align-items:center;gap:7px;margin-bottom:3px">
+        <span style="background:${x.sev==='CRITICAL'?'rgba(239,68,68,.2)':x.sev==='HIGH'?'rgba(245,158,11,.2)':'rgba(99,102,241,.2)'};color:${x.sev==='CRITICAL'?'#f87171':x.sev==='HIGH'?'#fbbf24':'#a5b4fc'};padding:2px 6px;border-radius:3px;font-size:10px;font-weight:700">${x.sev}</span>
+        <span style="font-weight:700;font-size:12.5px;color:rgba(255,255,255,.9)">${x.p}</span>
+      </div>
+      <div style="font-size:12px;color:rgba(255,255,255,.6)">${x.r}</div>
+      <div style="font-size:11.5px;color:rgba(255,255,255,.4);margin-top:2px">Action: ${x.act}</div>
+    </div>`).join('')}
+    </div>
+  </div></div>`;
+}
+
+/* ═══ HELPERS ═══ */
+function searchProjects(){
+  const v = document.getElementById('globalSearch').value.toLowerCase();
+  document.querySelectorAll('#projBody tr, #projTable tr').forEach(r=>{ if(r.parentNode.tagName==='TBODY')r.style.display=r.textContent.toLowerCase().includes(v)?'':'none'; });
+}
+function filterByStage(v){
+  document.querySelectorAll('#projBody tr').forEach(r=>{ r.style.display=(!v||r.textContent.toLowerCase().includes(v.toLowerCase()))?'':'none'; });
+}
+function filterByBU(v){
+  document.querySelectorAll('#projBody tr').forEach(r=>{ r.style.display=(!v||r.textContent.toLowerCase().includes(v.toLowerCase()))?'':'none'; });
+}
+
+function toggleNotif(){ document.getElementById('notifPanel').classList.toggle('h'); }
+document.addEventListener('click',e=>{ const np=document.getElementById('notifPanel'); if(np&&!np.contains(e.target)&&!e.target.closest('.tb-btn'))np.classList.add('h'); });
+
+function om(id){ document.getElementById(id)?.classList.remove('h'); }
+function cm(id){ document.getElementById(id)?.classList.add('h'); }
+function cmo(e,id){ if(e.target===document.getElementById(id))cm(id); }
+
+let _tt;
+function toast(msg,type=''){
+  const t=document.getElementById('toastEl');
+  t.innerHTML='<span>'+msg+'</span>';
+  t.className='toast '+(type||'');
+  t.classList.remove('h');
+  clearTimeout(_tt);
+  _tt=setTimeout(()=>t.classList.add('h'),3500);
+}
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){ document.querySelectorAll('.modal-overlay').forEach(m=>m.classList.add('h')); document.getElementById('notifPanel')?.classList.add('h'); }
+});
+</script>
+</body>
+</html>
